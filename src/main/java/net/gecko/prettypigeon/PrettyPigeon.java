@@ -10,7 +10,7 @@ import net.gecko.prettypigeon.world.gen.ModWorldGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// Very important comment
+// commit test
 public class PrettyPigeon implements ModInitializer {
 	public static final String MOD_ID = "pretpig";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
