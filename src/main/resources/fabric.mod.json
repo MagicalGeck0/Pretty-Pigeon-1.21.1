@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "pretpig",
+	"version": "${version}",
+	"name": "Pretty Pigeon",
+	"description": "Adds pretty little pigeons to Minecraft.",
+	"authors": [
+		"Gecko!"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
+	"license": "MIT",
+	"icon": "assets/pretpig/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.gecko.prettypigeon.PrettyPigeon"
+		],
+		"fabric-datagen": [
+			"net.gecko.prettypigeon.PrettyPigeonDataGenerator"
+		],
+		"client": [
+			"net.gecko.prettypigeon.PrettyPigeonClient"
+		]
+	},
+	"mixins": [
+		"prettypigeon.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

@@ -1,0 +1,27 @@
+package net.gecko.prettypigeon;
+
+import net.fabricmc.api.ModInitializer;
+
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.gecko.prettypigeon.entity.ModEntities;
+import net.gecko.prettypigeon.entity.custom.PigeonEntity;
+import net.gecko.prettypigeon.item.ModItems;
+import net.gecko.prettypigeon.world.gen.ModWorldGeneration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+// Very important comment
+public class PrettyPigeon implements ModInitializer {
+	public static final String MOD_ID = "pretpig";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+	@Override
+	public void onInitialize() {
+
+		ModEntities.RegisterModEntities();
+		FabricDefaultAttributeRegistry.register(ModEntities.PIGEON, PigeonEntity.createMobAttributes());
+
+		ModItems.registerModItems();
+		ModWorldGeneration.generateModWorldGen();
+	}
+}

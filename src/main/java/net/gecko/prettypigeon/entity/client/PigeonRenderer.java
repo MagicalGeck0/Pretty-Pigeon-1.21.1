@@ -1,0 +1,46 @@
+package net.gecko.prettypigeon.entity.client;
+
+import com.google.common.collect.Maps;
+import net.gecko.prettypigeon.PrettyPigeon;
+import net.gecko.prettypigeon.entity.custom.PigeonEntity;
+import net.gecko.prettypigeon.entity.custom.PigeonVariant;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+
+import java.util.Map;
+
+public class PigeonRenderer extends MobEntityRenderer<PigeonEntity, PigeonModel<PigeonEntity>> {
+
+    private static final Map<PigeonVariant, Identifier> LOCATION_BY_VARIANT =
+            Util.make(Maps.newEnumMap(PigeonVariant.class), map -> {
+                map.put(PigeonVariant.DEFAULT,
+                        Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/pigeon.png"));
+                map.put(PigeonVariant.CARNEAU,
+                        Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/carneau.png"));
+                map.put(PigeonVariant.SADDLEBACK,
+                        Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/saddleback.png"));
+            });
+
+    public PigeonRenderer(EntityRendererFactory.Context context) {
+        super(context, new PigeonModel<>(context.getPart(PigeonModel.PIGEON)), 0.25f);
+    }
+
+    @Override
+    public Identifier getTexture(PigeonEntity entity) {
+        return LOCATION_BY_VARIANT.get(entity.getVariant());
+    }
+
+    @Override
+    public void render(PigeonEntity livingEntity, float f, float g, MatrixStack matrixstack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        if(livingEntity.isBaby()) {
+            matrixstack.scale(0.5f,0.5f,0.5f);
+        } else {
+            matrixstack.scale(1f,1f,1f);
+        }
+        super.render(livingEntity, f, g, matrixstack, vertexConsumerProvider, i);
+    }
+}
