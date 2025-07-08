@@ -81,6 +81,14 @@ public class PigeonModel<T extends PigeonEntity> extends SinglePartEntityModel<T
                 .uv(15, 11).cuboid(1.0F, -1.0F, -1.0F, 0.0F, 1.0F, 2.0F, new Dilation(0.0F))
                 .uv(15, 11).cuboid(-1.0F, -1.0F, -1.0F, 0.0F, 1.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.25F, -7.25F, -2.0F, -0.5956F, -0.037F, 0.6485F));
 
+        ModelPartData ram = hat.addChild("ram", ModelPartBuilder.create().uv(27, 5).cuboid(1.0F, -8.5F, -2.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+                .uv(27, 5).mirrored().cuboid(-2.0F, -8.5F, -2.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
+                .uv(27, 5).cuboid(1.25F, -8.25F, -1.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+                .uv(27, 5).mirrored().cuboid(-2.25F, -8.25F, -1.5F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F)).mirrored(false)
+                .uv(26, 4).cuboid(1.5F, -7.25F, -2.75F, 1.0F, 1.0F, 2.0F, new Dilation(0.0F))
+                .uv(26, 4).mirrored().cuboid(-2.5F, -7.25F, -2.75F, 1.0F, 1.0F, 2.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+
+
         ModelPartData rightT_r1 = crown.addChild("rightT_r1", ModelPartBuilder.create().uv(16, 13).cuboid(-0.5F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, -1.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
 
         ModelPartData leftT_r1 = crown.addChild("leftT_r1", ModelPartBuilder.create().uv(16, 13).cuboid(-0.5F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(1.0F, -1.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
@@ -118,6 +126,7 @@ public class PigeonModel<T extends PigeonEntity> extends SinglePartEntityModel<T
         this.updateAnimation(entity.fezAnimationState, PigeonAnimations.ANIM_PIGEON_FEZ, ageInTicks, 1f);
         this.updateAnimation(entity.glassesAnimationState, PigeonAnimations.ANIM_PIGEON_GLASSES, ageInTicks, 1f);
         this.updateAnimation(entity.headphonesAnimationState, PigeonAnimations.ANIM_PIGEON_HEADPHONES, ageInTicks, 1f);
+        this.updateAnimation(entity.ramAnimationState, PigeonAnimations.ANIM_PIGEON_RAM, ageInTicks, 1f);
         this.updateAnimation(entity.crownAnimationState, PigeonAnimations.ANIM_PIGEON_CROWN, ageInTicks, 1f);
 
 

@@ -106,4 +106,10 @@ public class PigeonAnimations {
                     new Transformation(Transformation.Targets.SCALE,
                             new Keyframe(0f, AnimationHelper.createScalingVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
+
+    public static final Animation ANIM_PIGEON_RAM= Animation.Builder.create(0.1f)
+            .addBoneAnimation("ram",
+                    new Transformation(Transformation.Targets.SCALE,
+                            new Keyframe(0f, AnimationHelper.createScalingVector(0f, 0f, 0f),
+                                    Transformation.Interpolations.LINEAR))).build();
 }

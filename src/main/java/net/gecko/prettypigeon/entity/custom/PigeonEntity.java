@@ -42,6 +42,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     public final AnimationState glassesAnimationState = new AnimationState();
     public final AnimationState headphonesAnimationState = new AnimationState();
     public final AnimationState crownAnimationState = new AnimationState();
+    public final AnimationState ramAnimationState = new AnimationState();
 
 
     private int idleAnimationTimeout = 0;
@@ -95,26 +96,37 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
             this.fezAnimationState.start(0);
             this.glassesAnimationState.start(0);
             this.headphonesAnimationState.start(0);
+            this.ramAnimationState.start(0);
             this.crownAnimationState.stop();
         } else if (this.getTypeHat() == 0) {
             this.fezAnimationState.start(0);
             this.glassesAnimationState.start(0);
             this.headphonesAnimationState.start(0);
+            this.ramAnimationState.start(0);
             this.crownAnimationState.start(0);
         } else if (this.getTypeHat() == 1) {
             this.fezAnimationState.stop();
             this.glassesAnimationState.start(0);
             this.headphonesAnimationState.start(0);
+            this.ramAnimationState.start(0);
             this.crownAnimationState.start(0);
         } else if (this.getTypeHat() == 2) {
             this.fezAnimationState.start(0);
             this.glassesAnimationState.stop();
             this.headphonesAnimationState.start(0);
+            this.ramAnimationState.start(0);
             this.crownAnimationState.start(0);
         } else if (this.getTypeHat() == 3) {
             this.fezAnimationState.start(0);
             this.glassesAnimationState.start(0);
             this.headphonesAnimationState.stop();
+            this.ramAnimationState.start(0);
+            this.crownAnimationState.start(0);
+        } else if (this.getTypeHat() == 4) {
+            this.fezAnimationState.start(0);
+            this.glassesAnimationState.start(0);
+            this.headphonesAnimationState.start(0);
+            this.ramAnimationState.stop();
             this.crownAnimationState.start(0);
         }
     }
@@ -175,6 +187,11 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         }else if (this.getOwner() == player && itemStack.isOf(Items.NOTE_BLOCK)) {
             itemStack.decrementUnlessCreative(1, player);
             setHat(PigeonHat.HEADPHONES);
+            return ActionResult.success(this.getWorld().isClient);
+
+        }else if (this.getOwner() == player && itemStack.isOf(Items.GOAT_HORN)) {
+            itemStack.decrementUnlessCreative(1, player);
+            setHat(PigeonHat.RAM);
             return ActionResult.success(this.getWorld().isClient);
 
         } else if (!itemStack.isIn(ItemTags.PARROT_POISONOUS_FOOD)) {
