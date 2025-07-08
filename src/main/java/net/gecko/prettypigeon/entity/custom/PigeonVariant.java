@@ -7,7 +7,8 @@ public enum PigeonVariant {
     DEFAULT(0),
     CARNEAU(1),
     SADDLEBACK(2),
-    VERNANS(3);
+    VERNANS(3),
+    DRAGON(4);
 
     private static final PigeonVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(PigeonVariant::getId)).toArray(PigeonVariant[]::new);
 

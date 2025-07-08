@@ -31,6 +31,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+
 import static java.lang.Math.random;
 
 public class PigeonEntity extends TameableEntity implements Flutterer {
@@ -154,6 +156,12 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
             }
 
             return ActionResult.success(this.getWorld().isClient);
+
+        } else if (this.getOwner() == player && itemStack.isOf(Items.DRAGON_BREATH)) {
+            itemStack.decrementUnlessCreative(1, player);
+            this.setVariant(PigeonVariant.DRAGON);
+            return ActionResult.success(this.getWorld().isClient);
+
         } else if (this.getOwner() == player && itemStack.isOf(Items.RED_WOOL)) {
             itemStack.decrementUnlessCreative(1, player);
             setHat(PigeonHat.FEZ);
@@ -250,7 +258,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
 
         setHat(PigeonHat.DEFAULT);
-        PigeonVariant variant = Util.getRandom(PigeonVariant.values(), this.random);
+        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v != PigeonVariant.DRAGON).toArray(PigeonVariant[]::new), this.random);
         setVariant(variant);
         return super.initialize(world, difficulty, spawnReason, entityData);
     }

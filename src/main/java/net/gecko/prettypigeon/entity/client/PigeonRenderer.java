@@ -25,6 +25,8 @@ public class PigeonRenderer extends MobEntityRenderer<PigeonEntity, PigeonModel<
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/saddleback.png"));
                 map.put(PigeonVariant.VERNANS,
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/vernans.png"));
+                map.put(PigeonVariant.DRAGON,
+                        Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/dragon.png"));
             });
 
     public PigeonRenderer(EntityRendererFactory.Context context) {
