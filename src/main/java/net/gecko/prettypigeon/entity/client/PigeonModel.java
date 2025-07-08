@@ -7,8 +7,10 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 
 public class PigeonModel<T extends PigeonEntity> extends SinglePartEntityModel<T> {
     public static final EntityModelLayer PIGEON = new EntityModelLayer(Identifier.of(PrettyPigeon.MOD_ID, "pigeon"), "main");
@@ -50,7 +52,9 @@ public class PigeonModel<T extends PigeonEntity> extends SinglePartEntityModel<T
                 .uv(8, 0).cuboid(-1.0F, 2.0F, -0.5F, 1.0F, 2.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(1.0F, -2.0F, 0.5F));
 
         ModelPartData head = base.addChild("head", ModelPartBuilder.create().uv(0, 13).cuboid(-1.0F, -3.0F, -2.0F, 2.0F, 2.0F, 3.0F, new Dilation(0.0F))
-                .uv(0, 10).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 1.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -3.0F, -2.5F));
+                .uv(0, 10).cuboid(-1.0F, -1.0F, -1.0F, 2.0F, 1.0F, 2.0F, new Dilation(0.0F))
+                .uv(21, 0).cuboid(-1.5F, -2.75F, -1.75F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F))
+                .uv(21, 0).cuboid(0.5F, -2.75F, -1.75F, 1.0F, 1.0F, 1.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -3.0F, -2.5F));
 
         ModelPartData beak_r1 = head.addChild("beak_r1", ModelPartBuilder.create().uv(12, 0).cuboid(-1.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -2.0F, -2.75F, 0.0F, 0.7854F, 0.0F));
 
@@ -86,8 +90,27 @@ public class PigeonModel<T extends PigeonEntity> extends SinglePartEntityModel<T
     @Override
     public void setAngles(PigeonEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
-        this.setHeadAngles(netHeadYaw,headPitch);
+        /*HEAD*/
+        netHeadYaw = MathHelper.clamp(netHeadYaw, -30.0F, 30.0F);
+        headPitch = MathHelper.clamp(headPitch,-25.0F,45.0F);
 
+        this.head.yaw = netHeadYaw * 0.017453292F;
+        this.head.pitch = headPitch * 0.017453292F;
+
+        PlayerEntity player = entity.getWorld().getClosestPlayer(entity, 4.0);
+        if (player != null) {
+            Vec3d toPlayer = player.getPos().subtract(entity.getPos());
+            toPlayer = new Vec3d(toPlayer.x, 0, toPlayer.z).normalize();
+
+            Vec3d lookVec = entity.getRotationVec(1.0F).normalize();
+            lookVec = new Vec3d(lookVec.x,0,lookVec.z);
+            double dot = lookVec.dotProduct(toPlayer);
+            if (dot > 0.90) {
+                this.head.roll = (float) Math.toRadians(20);
+                this.head.yaw = (float) Math.toRadians(-30);
+            }
+        }
+        /*ANIMATION*/
         this.animateMovement(PigeonAnimations.ANIM_PIGEON_WALK, limbSwing, limbSwingAmount, 2F, 2.5f);
 
         this.updateAnimation(entity.idleAnimationState, PigeonAnimations.ANIM_PIGEON_IDLE, ageInTicks, 1f);
@@ -97,15 +120,7 @@ public class PigeonModel<T extends PigeonEntity> extends SinglePartEntityModel<T
         this.updateAnimation(entity.headphonesAnimationState, PigeonAnimations.ANIM_PIGEON_HEADPHONES, ageInTicks, 1f);
         this.updateAnimation(entity.crownAnimationState, PigeonAnimations.ANIM_PIGEON_CROWN, ageInTicks, 1f);
 
-    }
 
-
-    private void setHeadAngles(float headYaw, float headPitch) {
-        headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
-        headPitch = MathHelper.clamp(headPitch,-25.0F,45.0F);
-
-        this.head.yaw = headYaw * 0.017453292F;
-        this.head.pitch = headPitch * 0.017453292F;
     }
 
     @Override
