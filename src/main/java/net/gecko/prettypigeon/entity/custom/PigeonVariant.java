@@ -6,7 +6,8 @@ import java.util.Comparator;
 public enum PigeonVariant {
     DEFAULT(0),
     CARNEAU(1),
-    SADDLEBACK(2);
+    SADDLEBACK(2),
+    VERNANS(3);
 
     private static final PigeonVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(PigeonVariant::getId)).toArray(PigeonVariant[]::new);
 
