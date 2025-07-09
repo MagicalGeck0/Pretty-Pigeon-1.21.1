@@ -13,6 +13,8 @@ import net.minecraft.util.Identifier;
 public class ModItems {
 
     public static final Item PIGEON_SPAWN_EGG = registerItem("pigeon_spawn_egg", new SpawnEggItem(ModEntities.PIGEON, 0x5dce87, 0xbe6682, new Item.Settings()));
+    public static final Item RAD_BLEND = registerItem("rad_blend", new Item(new Item.Settings()));
+
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(PrettyPigeon.MOD_ID, name), item);
@@ -24,5 +26,9 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(entries -> {
             entries.add(PIGEON_SPAWN_EGG);
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
+            entries.add(RAD_BLEND);
+        });
+
     }
 }

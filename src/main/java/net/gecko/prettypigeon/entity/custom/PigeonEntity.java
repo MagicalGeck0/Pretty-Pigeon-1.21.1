@@ -1,6 +1,9 @@
 package net.gecko.prettypigeon.entity.custom;
 
 import net.gecko.prettypigeon.entity.ModEntities;
+import net.gecko.prettypigeon.item.ModItems;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -13,26 +16,40 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.Arrays;
+import java.util.Random;
 
+import static com.ibm.icu.impl.ValidIdentifiers.Datatype.variant;
 import static java.lang.Math.random;
 
 public class PigeonEntity extends TameableEntity implements Flutterer {
@@ -152,6 +169,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     }
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
+        ItemStack itemOff = player.getOffHandStack();
         if (!this.isTamed() && itemStack.isIn(ItemTags.PARROT_FOOD)) {
             itemStack.decrementUnlessCreative(1, player);
             if (!this.isSilent()) {
@@ -168,52 +186,66 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
             }
 
             return ActionResult.success(this.getWorld().isClient);
+        }
+        if (player.isSneaking()) {
 
-        } else if (this.getOwner() == player && itemStack.isOf(Items.DRAGON_BREATH)) {
-            itemStack.decrementUnlessCreative(1, player);
-            this.setVariant(PigeonVariant.DRAGON);
-            return ActionResult.success(this.getWorld().isClient);
+            if (this.getOwner() == player && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
+                itemStack.decrementUnlessCreative(1, player);
+                itemOff.decrementUnlessCreative(1, player);
+                this.setVariant(PigeonVariant.DRAGON);
+                this.makePuff(0.6f,0.3f,0.5f);
 
-        } else if (this.getOwner() == player && itemStack.isOf(Items.RED_WOOL)) {
-            itemStack.decrementUnlessCreative(1, player);
-            setHat(PigeonHat.FEZ);
-            return ActionResult.success(this.getWorld().isClient);
+                return ActionResult.success(this.getWorld().isClient);
 
-        } else if (this.getOwner() == player && itemStack.isOf(Items.REDSTONE)) {
-            itemStack.decrementUnlessCreative(1, player);
-            setHat(PigeonHat.GLASSES);
-            return ActionResult.success(this.getWorld().isClient);
+            } else if (this.getOwner() == player && ((itemStack.isOf(Items.WARPED_FUNGUS) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.WARPED_FUNGUS)))) {
+                itemStack.decrementUnlessCreative(1, player);
+                itemOff.decrementUnlessCreative(1, player);
+                this.setVariant(PigeonVariant.WARPED);
+                this.makePuff(0.2f,0.4f,0.4f);
 
-        }else if (this.getOwner() == player && itemStack.isOf(Items.NOTE_BLOCK)) {
-            itemStack.decrementUnlessCreative(1, player);
-            setHat(PigeonHat.HEADPHONES);
-            return ActionResult.success(this.getWorld().isClient);
+                return ActionResult.success(this.getWorld().isClient);
 
-        }else if (this.getOwner() == player && itemStack.isOf(Items.GOAT_HORN)) {
-            itemStack.decrementUnlessCreative(1, player);
-            setHat(PigeonHat.RAM);
-            return ActionResult.success(this.getWorld().isClient);
+            } else if (this.getOwner() == player && ((itemStack.isOf(Items.CRIMSON_FUNGUS) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.CRIMSON_FUNGUS)))) {
+                itemStack.decrementUnlessCreative(1, player);
+                itemOff.decrementUnlessCreative(1, player);
+                this.setVariant(PigeonVariant.CRIMSON);
+                this.makePuff(0.4f,0.2f,0.2f);
 
-        } else if (!itemStack.isIn(ItemTags.PARROT_POISONOUS_FOOD)) {
-            if (!this.isInAir() && this.isTamed() && this.isOwner(player)) {
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (this.getOwner() == player && itemStack.isOf(Items.RED_WOOL)) {
+                itemStack.decrementUnlessCreative(1, player);
+                setHat(PigeonHat.FEZ);
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (this.getOwner() == player && itemStack.isOf(Items.REDSTONE)) {
+                itemStack.decrementUnlessCreative(1, player);
+                setHat(PigeonHat.GLASSES);
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (this.getOwner() == player && itemStack.isOf(Items.NOTE_BLOCK)) {
+                itemStack.decrementUnlessCreative(1, player);
+                setHat(PigeonHat.HEADPHONES);
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (this.getOwner() == player && itemStack.isOf(Items.GOAT_HORN)) {
+                itemStack.decrementUnlessCreative(1, player);
+                setHat(PigeonHat.RAM);
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (!this.isInAir() && this.isTamed() && this.isOwner(player)) {
                 if (!this.getWorld().isClient) {
                     this.setSitting(!this.isSitting());
                 }
 
                 return ActionResult.success(this.getWorld().isClient);
-            } else {
-                return super.interactMob(player, hand);
             }
-        } else {
-            itemStack.decrementUnlessCreative(1, player);
-            this.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 900));
-            if (player.isCreative() || !this.isInvulnerable()) {
-                this.damage(this.getDamageSources().playerAttack(player), Float.MAX_VALUE);
-            }
-
-            return ActionResult.success(this.getWorld().isClient);
         }
+
+        return super.interactMob(player, hand);
+
     }
+
 
     public boolean isInAir() {
         return !this.isOnGround();
@@ -223,12 +255,23 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         return true;
     }
 
-
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(DATA_ID_TYPE_VARIANT, 0);
         builder.add(DATA_ID_TYPE_HAT, 0);
+    }
+    public void makePuff(float r,float g, float b) {
+        DustParticleEffect colorSmoke = new DustParticleEffect(new Vector3f(r, g, b), 1.0f);
+        for (int i = 0; i < 50; i++) {
+            this.getWorld().addParticle(colorSmoke,
+                    this.getX() + (random.nextDouble() - 0.5),
+                    this.getY() + (random.nextDouble() - 0.5),
+                    this.getZ() + (random.nextDouble() - 0.5),
+                    (random.nextDouble() - 0.5),
+                    (random.nextDouble() - 0.5),
+                    (random.nextDouble() - 0.5));
+        }
     }
 
     /*VARIANT*/
@@ -273,10 +316,11 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
-
         setHat(PigeonHat.DEFAULT);
-        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v != PigeonVariant.DRAGON).toArray(PigeonVariant[]::new), this.random);
+        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v != PigeonVariant.DRAGON && v != PigeonVariant.WARPED && v != PigeonVariant.CRIMSON).toArray(PigeonVariant[]::new), this.random);
         setVariant(variant);
+
         return super.initialize(world, difficulty, spawnReason, entityData);
+
     }
 }

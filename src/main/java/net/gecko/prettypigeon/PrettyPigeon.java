@@ -2,11 +2,13 @@ package net.gecko.prettypigeon;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.gecko.prettypigeon.entity.ModEntities;
 import net.gecko.prettypigeon.entity.custom.PigeonEntity;
 import net.gecko.prettypigeon.item.ModItems;
 import net.gecko.prettypigeon.world.gen.ModWorldGeneration;
+import net.minecraft.data.DataGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
