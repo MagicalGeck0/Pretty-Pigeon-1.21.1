@@ -76,7 +76,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         this.goalSelector.add(0, new SwimGoal(this));
 
         this.goalSelector.add(1, new AnimalMateGoal(this,1.150));
-        this.goalSelector.add(2, new TemptGoal(this,1.250, Ingredient.fromTag(ItemTags.PARROT_FOOD), true));
+        this.goalSelector.add(2, new TemptGoal(this,1.250, Ingredient.ofItems(ModItems.WORM), true));
 
         this.goalSelector.add(2, new SitGoal(this));
         this.goalSelector.add(2, new FollowOwnerGoal(this, (double)1.0F, 5.0F, 1.0F));
@@ -150,13 +150,13 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(ItemTags.PARROT_FOOD);
+        return stack.isOf(ModItems.WORM);
     }
 
     @Override
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         PigeonEntity baby = ModEntities.PIGEON.create(world);
-        PigeonVariant variant = Util.getRandom(PigeonVariant.values(), this.random);
+        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v != PigeonVariant.DRAGON && v != PigeonVariant.WARPED && v != PigeonVariant.CRIMSON).toArray(PigeonVariant[]::new), this.random);
         baby.setVariant(variant);
         return baby;
     }
@@ -170,7 +170,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         ItemStack itemOff = player.getOffHandStack();
-        if (!this.isTamed() && itemStack.isIn(ItemTags.PARROT_FOOD)) {
+        if (!this.isTamed() && itemStack.isOf(ModItems.WORM)) {
             itemStack.decrementUnlessCreative(1, player);
             if (!this.isSilent()) {
                 this.getWorld().playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PARROT_EAT, this.getSoundCategory(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
