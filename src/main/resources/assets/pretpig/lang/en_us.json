@@ -1,4 +1,6 @@
 {
   "item.pretpig.pigeon_spawn_egg": "Pigeon Spawn Egg",
-  "item.pretpig.rad_blend": "§aRad Blend"
+  "item.pretpig.rad_blend": "§aRad Blend",
+  "advancement.pretpig.mutation.title": "Mutator acquired!",
+  "advancement.pretpig.mutation.desc": "You obtained rad blend by mixing all kinds of powders, now is your time to mutate those little gremlins!"
 }
