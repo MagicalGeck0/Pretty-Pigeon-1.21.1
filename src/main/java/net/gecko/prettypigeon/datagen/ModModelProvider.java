@@ -26,6 +26,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.PIGEON_SPAWN_EGG , new Model(Optional.of(Identifier.of("item/template_spawn_egg")),Optional.empty()));
         itemModelGenerator.register(ModItems.RAD_BLEND ,Models.GENERATED);
         itemModelGenerator.register(ModItems.WORM ,Models.GENERATED);
+        itemModelGenerator.register(ModItems.COOKED_WORM ,Models.GENERATED);
         itemModelGenerator.register(ModItems.SIFTER ,Models.GENERATED);
 
     }
