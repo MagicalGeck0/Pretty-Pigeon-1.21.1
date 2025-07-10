@@ -40,14 +40,14 @@ public class SifterItem extends Item {
         if(SIFTER_MAP.containsKey(clickedBlock)) {
             if(!world.isClient()){
                 int count = clickCountMap.getOrDefault(pos, 0) + 1;
+                context.getPlayer().giveItemStack(new ItemStack(ModItems.WORM));
+                context.getStack().damage(1, ((ServerWorld) world), ((ServerPlayerEntity) context.getPlayer()),
+                        item -> context.getPlayer().sendEquipmentBreakStatus(item, EquipmentSlot.MAINHAND));
+
+                world.playSound(null, context.getBlockPos(), SoundEvents.BLOCK_ROOTED_DIRT_STEP, SoundCategory.BLOCKS);
                 if (count >= 5) {
                     clickCountMap.remove(pos);
                     world.setBlockState(context.getBlockPos(), SIFTER_MAP.get(clickedBlock).getDefaultState());
-                    context.getPlayer().giveItemStack(new ItemStack(ModItems.WORM));
-                    context.getStack().damage(1, ((ServerWorld) world), ((ServerPlayerEntity) context.getPlayer()),
-                            item -> context.getPlayer().sendEquipmentBreakStatus(item, EquipmentSlot.MAINHAND));
-
-                    world.playSound(null, context.getBlockPos(), SoundEvents.BLOCK_ROOTED_DIRT_STEP, SoundCategory.BLOCKS);
 
                 }else {
                     clickCountMap.put(pos, count);
