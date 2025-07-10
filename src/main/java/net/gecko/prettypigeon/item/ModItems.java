@@ -17,6 +17,8 @@ public class ModItems {
     public static final Item RAD_BLEND = registerItem("rad_blend", new Item(new Item.Settings()));
     public static final Item WORM = registerItem("worm", new Item(new Item.Settings().food(ModFoodComponents.WORM)));
     public static final Item COOKED_WORM = registerItem("cooked_worm", new Item(new Item.Settings().food(ModFoodComponents.COOKED_WORM)));
+    public static final Item RAD_STAR = registerItem("rad_star", new Item(new Item.Settings()));
+    public static final Item GOLDEN_WORM = registerItem("golden_worm", new Item(new Item.Settings().food(ModFoodComponents.GOLDEN_WORM)));
 
     public static final Item SIFTER = registerItem("sifter", new SifterItem(new Item.Settings().maxDamage(32)));
 
@@ -32,6 +34,7 @@ public class ModItems {
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.add(RAD_BLEND);
+            entries.add(RAD_STAR);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.add(SIFTER);
@@ -39,6 +42,7 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.add(WORM);
             entries.add(COOKED_WORM);
+            entries.add(GOLDEN_WORM);
         });
 
     }

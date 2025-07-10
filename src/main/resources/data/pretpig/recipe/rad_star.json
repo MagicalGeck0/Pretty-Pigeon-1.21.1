@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "pretpig:golden_worm"
+  },
+  "base": {
+    "item": "minecraft:nether_star"
+  },
+  "addition": {
+    "item": "pretpig:rad_blend"
+  },
+  "result": {
+    "id": "pretpig:rad_star"
+  }
+}
