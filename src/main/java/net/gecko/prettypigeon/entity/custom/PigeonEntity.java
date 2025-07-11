@@ -1,7 +1,9 @@
 package net.gecko.prettypigeon.entity.custom;
 
+import com.sun.jna.platform.win32.Variant;
 import net.gecko.prettypigeon.entity.ModEntities;
 import net.gecko.prettypigeon.item.ModItems;
+import net.gecko.prettypigeon.sound.ModSounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -21,6 +23,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -177,7 +181,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         }
         if (player.isSneaking()) {
 
-            if (this.getOwner() == player && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
+            if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.DRAGON) && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
                 this.setVariant(PigeonVariant.DRAGON);
@@ -185,7 +189,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
                 return ActionResult.success(this.getWorld().isClient);
 
-            } else if (this.getOwner() == player && ((itemStack.isOf(Items.WARPED_FUNGUS) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.WARPED_FUNGUS)))) {
+            } else if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.WARPED) && ((itemStack.isOf(Items.WARPED_FUNGUS) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.WARPED_FUNGUS)))) {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
                 this.setVariant(PigeonVariant.WARPED);
@@ -193,7 +197,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
                 return ActionResult.success(this.getWorld().isClient);
 
-            } else if (this.getOwner() == player && ((itemStack.isOf(Items.CRIMSON_FUNGUS) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.CRIMSON_FUNGUS)))) {
+            } else if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.CRIMSON) && ((itemStack.isOf(Items.CRIMSON_FUNGUS) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.CRIMSON_FUNGUS)))) {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
                 this.setVariant(PigeonVariant.CRIMSON);
@@ -201,32 +205,32 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
                 return ActionResult.success(this.getWorld().isClient);
 
-            } else if (this.getOwner() == player && itemStack.isOf(Items.RED_WOOL)) {
+            } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.FEZ) && itemStack.isOf(Items.RED_WOOL)) {
                 itemStack.decrementUnlessCreative(1, player);
                 setHat(PigeonHat.FEZ);
                 return ActionResult.success(this.getWorld().isClient);
 
-            } else if (this.getOwner() == player && itemStack.isOf(Items.REDSTONE)) {
+            } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.GLASSES) && itemStack.isOf(Items.REDSTONE)) {
                 itemStack.decrementUnlessCreative(1, player);
                 setHat(PigeonHat.GLASSES);
                 return ActionResult.success(this.getWorld().isClient);
 
-            } else if (this.getOwner() == player && itemStack.isOf(Items.NOTE_BLOCK)) {
+            } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.HEADPHONES) && itemStack.isOf(Items.NOTE_BLOCK)) {
                 itemStack.decrementUnlessCreative(1, player);
                 setHat(PigeonHat.HEADPHONES);
                 return ActionResult.success(this.getWorld().isClient);
 
-            } else if (this.getOwner() == player && itemStack.isOf(Items.GOAT_HORN)) {
+            } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.RAM) && itemStack.isOf(Items.GOAT_HORN)) {
                 itemStack.decrementUnlessCreative(1, player);
                 setHat(PigeonHat.RAM);
                 return ActionResult.success(this.getWorld().isClient);
 
-            } else if (this.getOwner() == player && itemStack.isOf(ModItems.RAD_STAR)) {
+            } else if (this.getOwner() == player && itemStack.isOf(ModItems.RAD_STAR) && !this.isInvulnerable()) {
                 itemStack.decrementUnlessCreative(1, player);
-                if (!this.getWorld().isClient) {
-                    this.setInvulnerable(true);
-                }
+                this.setInvulnerable(true);
+
                 this.makePuff(0f,1f,0f);
+                this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.NEUTRAL);
                 return ActionResult.success(this.getWorld().isClient);
 
             } else if (!this.isInAir() && this.isTamed() && this.isOwner(player)) {
@@ -318,5 +322,11 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
         return super.initialize(world, difficulty, spawnReason, entityData);
 
+    }
+
+    @Nullable
+    @Override
+    protected  SoundEvent getAmbientSound() {
+        return ModSounds.ENTITY_PIGEON_AMBIENT;
     }
 }

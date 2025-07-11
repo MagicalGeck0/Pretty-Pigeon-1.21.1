@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.gecko.prettypigeon.entity.ModEntities;
 import net.gecko.prettypigeon.entity.custom.PigeonEntity;
 import net.gecko.prettypigeon.item.ModItems;
+import net.gecko.prettypigeon.sound.ModSounds;
 import net.gecko.prettypigeon.world.gen.ModWorldGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +19,10 @@ public class PrettyPigeon implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
-		ModEntities.RegisterModEntities();
+		ModEntities.registerModEntities();
 		FabricDefaultAttributeRegistry.register(ModEntities.PIGEON, PigeonEntity.createMobAttributes());
 
+		ModSounds.registerSounds();
 		ModItems.registerModItems();
 		ModWorldGeneration.generateModWorldGen();
 	}

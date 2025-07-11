@@ -12,7 +12,7 @@ public class ModEntities {
 
     public static final EntityType<PigeonEntity> PIGEON = Registry.register(Registries.ENTITY_TYPE, Identifier.of(PrettyPigeon.MOD_ID, "pigeon"),EntityType.Builder.create(PigeonEntity::new, SpawnGroup.CREATURE).dimensions(0.5f,0.5f).build());
 
-    public static void RegisterModEntities(){
+    public static void registerModEntities(){
         PrettyPigeon.LOGGER.info("registering mod entities for " + PrettyPigeon.MOD_ID);
     }
 }

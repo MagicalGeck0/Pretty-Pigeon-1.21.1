@@ -1,0 +1,8 @@
+{
+  "entity_pigeon_ambient": {
+    "subtitle": "sounds.pretpig.entity_pigeon_ambient",
+    "sounds": [
+      "pretpig:entity_pigeon_ambient"
+    ]
+  }
+}

@@ -5,5 +5,7 @@
   "item.pretpig.cooked_worm": "Cooked Worm",
   "item.pretpig.sifter": "Sifter",
   "item.pretpig.rad_star": "§aRad Star",
-  "item.pretpig.golden_worm": "§6Golden Worm"
+  "item.pretpig.golden_worm": "§6Golden Worm",
+
+  "sounds.pretpig.entity_pigeon_ambient": "pigeon coo-ing"
 }
