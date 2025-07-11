@@ -71,7 +71,12 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         this.goalSelector.add(6, new LookAroundGoal(this));
     }
     public static DefaultAttributeContainer.Builder createMobAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, (double)6.0F).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, (double)0.3F).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, (double)0.5F);
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, (double)6.0F)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, (double)0.3F)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, (double)0.5F)
+                .add(EntityAttributes.GENERIC_GRAVITY, (double)0.01f)
+                .add(EntityAttributes.GENERIC_JUMP_STRENGTH,(double)0.5f);
     }
 
     private void SetupAnimationStates() {
