@@ -101,6 +101,8 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
             this.sittingAnimationState.start(0);
         } else {
             this.sittingAnimationState.stop();
+        } if (this.isInAir()) {
+            this.makePuff(1f,1f,1f,1);
         } if (this.getCustomName() != null && this.getCustomName().getString().equals("Chloe")) {
             this.fezAnimationState.start(0);
             this.glassesAnimationState.start(0);
@@ -185,7 +187,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
                 this.setVariant(PigeonVariant.DRAGON);
-                this.makePuff(0.6f,0.3f,0.5f);
+                this.makePuff(0.6f,0.3f,0.5f,50);
 
                 return ActionResult.success(this.getWorld().isClient);
 
@@ -193,7 +195,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
                 this.setVariant(PigeonVariant.WARPED);
-                this.makePuff(0.2f,0.4f,0.4f);
+                this.makePuff(0.2f,0.4f,0.4f,50);
 
                 return ActionResult.success(this.getWorld().isClient);
 
@@ -201,7 +203,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
                 this.setVariant(PigeonVariant.CRIMSON);
-                this.makePuff(0.4f,0.2f,0.2f);
+                this.makePuff(0.4f,0.2f,0.2f,50);
 
                 return ActionResult.success(this.getWorld().isClient);
 
@@ -229,7 +231,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 itemStack.decrementUnlessCreative(1, player);
                 this.setInvulnerable(true);
 
-                this.makePuff(0f,1f,0f);
+                this.makePuff(0f,1f,0f,50);
                 this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.NEUTRAL);
                 return ActionResult.success(this.getWorld().isClient);
 
@@ -261,9 +263,9 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         builder.add(DATA_ID_TYPE_VARIANT, 0);
         builder.add(DATA_ID_TYPE_HAT, 0);
     }
-    public void makePuff(float r,float g, float b) {
+    public void makePuff(float r,float g, float b,int quantity) {
         DustParticleEffect colorSmoke = new DustParticleEffect(new Vector3f(r, g, b), 1.0f);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < quantity; i++) {
             this.getWorld().addParticle(colorSmoke,
                     this.getX() + (random.nextDouble() - 0.5),
                     this.getY() + (random.nextDouble() - 0.5),
