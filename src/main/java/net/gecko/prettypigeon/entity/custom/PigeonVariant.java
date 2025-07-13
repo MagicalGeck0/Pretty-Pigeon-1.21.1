@@ -12,7 +12,8 @@ public enum PigeonVariant {
     WARPED(5),
     CRIMSON(6),
     AETHER(7),
-    BUMBLE(8);
+    BUMBLE(8),
+    RIBBIT(9);
 
     private static final PigeonVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(PigeonVariant::getId)).toArray(PigeonVariant[]::new);
 

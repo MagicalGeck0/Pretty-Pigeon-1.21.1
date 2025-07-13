@@ -154,7 +154,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     @Override
     public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         PigeonEntity baby = ModEntities.PIGEON.create(world);
-        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v != PigeonVariant.DRAGON && v != PigeonVariant.WARPED && v != PigeonVariant.CRIMSON).toArray(PigeonVariant[]::new), this.random);
+        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v.getId() <= 3).toArray(PigeonVariant[]::new), this.random);
         baby.setVariant(variant);
         return baby;
     }
@@ -188,9 +188,8 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         if (player.isSneaking()) {
 
             /*bumblezone compat*/
-            if (PrettyPigeonCompat.isBumblezoneLoaded()) {
-                Identifier beeBreadId = Identifier.of("the_bumblezone", "bee_bread");
-                Item beeBread = Registries.ITEM.get(beeBreadId);
+            if (PrettyPigeonCompat.isLoaded("the_bumblezone")) {
+                Item beeBread = PrettyPigeonCompat.loadItem("the_bumblezone","bee_bread");
                 if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.BUMBLE) && ((itemStack.isOf(beeBread) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(beeBread)))) {
                     itemStack.decrementUnlessCreative(1, player);
                     itemOff.decrementUnlessCreative(1, player);
@@ -199,6 +198,16 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
                     return ActionResult.success(this.getWorld().isClient);
                 }
+            }/*ribbits compat*/
+            if (PrettyPigeonCompat.isLoaded("ribbits")){
+                Item toadstool = PrettyPigeonCompat.loadItem("ribbits","toadstool");
+                if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.RIBBIT) && ((itemStack.isOf(toadstool) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(toadstool)))) {
+                    itemStack.decrementUnlessCreative(1, player);
+                    itemOff.decrementUnlessCreative(1, player);
+                    this.setVariant(PigeonVariant.RIBBIT);
+                    this.makePuff(0.6f,0.7f,0.3f,50);
+                }
+
             } if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.DRAGON) && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
