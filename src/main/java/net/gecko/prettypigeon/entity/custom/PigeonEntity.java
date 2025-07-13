@@ -23,15 +23,12 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -198,6 +195,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
                     return ActionResult.success(this.getWorld().isClient);
                 }
+
             }/*ribbits compat*/
             if (PrettyPigeonCompat.isLoaded("ribbits")){
                 Item toadstool = PrettyPigeonCompat.loadItem("ribbits","toadstool");
