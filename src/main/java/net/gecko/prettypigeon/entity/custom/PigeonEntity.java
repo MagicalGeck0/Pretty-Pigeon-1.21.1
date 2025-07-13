@@ -1,6 +1,6 @@
 package net.gecko.prettypigeon.entity.custom;
 
-import com.sun.jna.platform.win32.Variant;
+import net.gecko.prettypigeon.PrettyPigeonCompat;
 import net.gecko.prettypigeon.entity.ModEntities;
 import net.gecko.prettypigeon.item.ModItems;
 import net.gecko.prettypigeon.sound.ModSounds;
@@ -17,17 +17,21 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -183,7 +187,32 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         }
         if (player.isSneaking()) {
 
-            if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.DRAGON) && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
+            /*aether compat*/
+            if (PrettyPigeonCompat.isAetherLoaded()) {
+                Identifier ambrosiumId = Identifier.of("aether", "ambrosium_shard");
+                Item ambrosium = Registries.ITEM.get(ambrosiumId);
+                if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.AETHER) && ((itemStack.isOf(ambrosium) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(ambrosium)))) {
+                    itemStack.decrementUnlessCreative(1, player);
+                    itemOff.decrementUnlessCreative(1, player);
+                    this.setVariant(PigeonVariant.AETHER);
+                    this.makePuff(0.8f, 0.8f, 1f, 50);
+
+                    return ActionResult.success(this.getWorld().isClient);
+                }
+
+            /*bumblezone compat*/
+            } if (PrettyPigeonCompat.isBumblezoneLoaded()) {
+                Identifier beeBreadId = Identifier.of("the_bumblezone", "bee_bread");
+                Item beeBread = Registries.ITEM.get(beeBreadId);
+                if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.BUMBLE) && ((itemStack.isOf(beeBread) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(beeBread)))) {
+                    itemStack.decrementUnlessCreative(1, player);
+                    itemOff.decrementUnlessCreative(1, player);
+                    this.setVariant(PigeonVariant.BUMBLE);
+                    this.makePuff(0.65f, 0.5f, 0.2f, 50);
+
+                    return ActionResult.success(this.getWorld().isClient);
+                }
+            } else if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.DRAGON) && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
                 this.setVariant(PigeonVariant.DRAGON);
