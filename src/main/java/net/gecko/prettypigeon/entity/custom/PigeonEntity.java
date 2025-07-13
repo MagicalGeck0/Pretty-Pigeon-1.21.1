@@ -187,21 +187,8 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         }
         if (player.isSneaking()) {
 
-            /*aether compat*/
-            if (PrettyPigeonCompat.isAetherLoaded()) {
-                Identifier ambrosiumId = Identifier.of("aether", "ambrosium_shard");
-                Item ambrosium = Registries.ITEM.get(ambrosiumId);
-                if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.AETHER) && ((itemStack.isOf(ambrosium) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(ambrosium)))) {
-                    itemStack.decrementUnlessCreative(1, player);
-                    itemOff.decrementUnlessCreative(1, player);
-                    this.setVariant(PigeonVariant.AETHER);
-                    this.makePuff(0.8f, 0.8f, 1f, 50);
-
-                    return ActionResult.success(this.getWorld().isClient);
-                }
-
             /*bumblezone compat*/
-            } if (PrettyPigeonCompat.isBumblezoneLoaded()) {
+            if (PrettyPigeonCompat.isBumblezoneLoaded()) {
                 Identifier beeBreadId = Identifier.of("the_bumblezone", "bee_bread");
                 Item beeBread = Registries.ITEM.get(beeBreadId);
                 if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.BUMBLE) && ((itemStack.isOf(beeBread) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(beeBread)))) {
@@ -212,7 +199,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
                     return ActionResult.success(this.getWorld().isClient);
                 }
-            } else if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.DRAGON) && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
+            } if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.DRAGON) && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
                 itemStack.decrementUnlessCreative(1, player);
                 itemOff.decrementUnlessCreative(1, player);
                 this.setVariant(PigeonVariant.DRAGON);
@@ -348,7 +335,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         setHat(PigeonHat.DEFAULT);
-        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v != PigeonVariant.DRAGON && v != PigeonVariant.WARPED && v != PigeonVariant.CRIMSON).toArray(PigeonVariant[]::new), this.random);
+        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v.getId() <= 3).toArray(PigeonVariant[]::new), this.random);
         setVariant(variant);
 
         return super.initialize(world, difficulty, spawnReason, entityData);
