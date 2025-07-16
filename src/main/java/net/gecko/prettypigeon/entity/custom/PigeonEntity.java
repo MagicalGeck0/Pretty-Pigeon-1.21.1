@@ -4,6 +4,8 @@ import net.gecko.prettypigeon.PrettyPigeonCompat;
 import net.gecko.prettypigeon.entity.ModEntities;
 import net.gecko.prettypigeon.item.ModItems;
 import net.gecko.prettypigeon.sound.ModSounds;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -23,10 +25,12 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -184,6 +188,29 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         }
         if (player.isSneaking()) {
 
+            /*Pointer*/
+            if (itemStack.isOf(ModItems.POINTER)){
+                if (itemStack.get(DataComponentTypes.CUSTOM_DATA) == null) {
+                    NbtCompound data = new NbtCompound();
+                    data.putInt("variant", this.getTypeVariant());
+                    NbtComponent component = NbtComponent.of(data);
+                    itemStack.set(DataComponentTypes.CUSTOM_DATA, component);
+                    itemStack.set(DataComponentTypes.CUSTOM_NAME, Text.translatable("Pointer").append(Text.literal(" ("+this.getVariant().toString()+")")));
+                    return ActionResult.success(this.getWorld().isClient);
+                } else if (this.getOwner() == player){
+                    int variant = itemStack.get(DataComponentTypes.CUSTOM_DATA).copyNbt().getInt("variant");
+                    this.setVariant(PigeonVariant.byid(variant));
+                    itemStack.remove(DataComponentTypes.CUSTOM_DATA);
+                    itemStack.remove(DataComponentTypes.CUSTOM_NAME);
+                    makePuff(1f,1f,1f,100);
+                    this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.NEUTRAL);
+                    itemStack.damage(1,player,EquipmentSlot.MAINHAND);
+                    return ActionResult.SUCCESS;
+                }else {
+                    return ActionResult.PASS;
+                }
+            }
+
             /*bumblezone compat*/
             if (PrettyPigeonCompat.isLoaded("the_bumblezone")) {
                 Item beeBread = PrettyPigeonCompat.loadItem("the_bumblezone","bee_bread");
@@ -204,6 +231,8 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                     itemOff.decrementUnlessCreative(1, player);
                     this.setVariant(PigeonVariant.RIBBIT);
                     this.makePuff(0.6f,0.7f,0.3f,50);
+
+                    return ActionResult.success(this.getWorld().isClient);
                 }
 
             } if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.DRAGON) && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
@@ -259,9 +288,8 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 return ActionResult.success(this.getWorld().isClient);
 
             } else if (!this.isInAir() && this.isTamed() && this.isOwner(player)) {
-                if (!this.getWorld().isClient) {
-                    this.setSitting(!this.isSitting());
-                }
+                this.setSitting(!this.isSitting());
+
 
                 return ActionResult.success(this.getWorld().isClient);
             }

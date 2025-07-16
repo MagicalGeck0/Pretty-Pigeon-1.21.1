@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public enum PigeonVariant {
-    DEFAULT(0),
+    COMMON(0),
     CARNEAU(1),
     SADDLEBACK(2),
     VERNANS(3),

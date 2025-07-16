@@ -21,6 +21,7 @@ public class ModItems {
     public static final Item GOLDEN_WORM = registerItem("golden_worm", new Item(new Item.Settings().food(ModFoodComponents.GOLDEN_WORM)));
 
     public static final Item SIFTER = registerItem("sifter", new SifterItem(new Item.Settings().maxDamage(32)));
+    public static final Item POINTER = registerItem("pointer", new Item(new Item.Settings().maxDamage(16)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(PrettyPigeon.MOD_ID, name), item);
@@ -38,6 +39,7 @@ public class ModItems {
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.add(SIFTER);
+            entries.add(POINTER);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.add(WORM);

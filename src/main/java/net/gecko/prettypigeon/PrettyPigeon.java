@@ -10,6 +10,7 @@ import net.gecko.prettypigeon.sound.ModSounds;
 import net.gecko.prettypigeon.world.gen.ModWorldGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static net.gecko.prettypigeon.entity.ModEntities.PIGEON;
 
 // commit test
 public class PrettyPigeon implements ModInitializer {
@@ -20,7 +21,7 @@ public class PrettyPigeon implements ModInitializer {
 	public void onInitialize() {
 
 		ModEntities.registerModEntities();
-		FabricDefaultAttributeRegistry.register(ModEntities.PIGEON, PigeonEntity.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(PIGEON, PigeonEntity.createMobAttributes());
 
 		ModSounds.registerSounds();
 		ModItems.registerModItems();

@@ -17,7 +17,7 @@ public class PigeonRenderer extends MobEntityRenderer<PigeonEntity, PigeonModel<
 
     private static final Map<PigeonVariant, Identifier> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(PigeonVariant.class), map -> {
-                map.put(PigeonVariant.DEFAULT,
+                map.put(PigeonVariant.COMMON,
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/pigeon.png"));
                 map.put(PigeonVariant.CARNEAU,
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/carneau.png"));
