@@ -3,6 +3,7 @@ package net.gecko.prettypigeon.item;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.gecko.prettypigeon.PrettyPigeon;
 import net.gecko.prettypigeon.entity.ModEntities;
+import net.gecko.prettypigeon.item.custom.PointerItem;
 import net.gecko.prettypigeon.item.custom.SifterItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -21,7 +22,7 @@ public class ModItems {
     public static final Item GOLDEN_WORM = registerItem("golden_worm", new Item(new Item.Settings().food(ModFoodComponents.GOLDEN_WORM)));
 
     public static final Item SIFTER = registerItem("sifter", new SifterItem(new Item.Settings().maxDamage(32)));
-    public static final Item POINTER = registerItem("pointer", new Item(new Item.Settings().maxDamage(16)));
+    public static final Item POINTER = registerItem("pointer", new PointerItem(new Item.Settings().maxDamage(16)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(PrettyPigeon.MOD_ID, name), item);

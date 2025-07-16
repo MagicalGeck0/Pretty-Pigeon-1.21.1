@@ -7,6 +7,7 @@
   "item.pretpig.rad_star": "§aRad Star",
   "item.pretpig.golden_worm": "§6Golden Worm",
   "item.pretpig.pointer": "Pointer",
+  "tooltip.pretpig.pointer_tip": "Press ctrl",
 
   "sounds.pretpig.entity_pigeon_ambient": "Pigeon coo-ing"
 }

@@ -25,7 +25,6 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -195,13 +194,11 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                     data.putInt("variant", this.getTypeVariant());
                     NbtComponent component = NbtComponent.of(data);
                     itemStack.set(DataComponentTypes.CUSTOM_DATA, component);
-                    itemStack.set(DataComponentTypes.CUSTOM_NAME, Text.translatable("Pointer").append(Text.literal(" ("+this.getVariant().toString()+")")));
                     return ActionResult.success(this.getWorld().isClient);
                 } else if (this.getOwner() == player){
                     int variant = itemStack.get(DataComponentTypes.CUSTOM_DATA).copyNbt().getInt("variant");
                     this.setVariant(PigeonVariant.byid(variant));
-                    itemStack.remove(DataComponentTypes.CUSTOM_DATA);
-                    itemStack.remove(DataComponentTypes.CUSTOM_NAME);
+                    itemStack.set(DataComponentTypes.CUSTOM_DATA, null);
                     makePuff(1f,1f,1f,100);
                     this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.NEUTRAL);
                     itemStack.damage(1,player,EquipmentSlot.MAINHAND);

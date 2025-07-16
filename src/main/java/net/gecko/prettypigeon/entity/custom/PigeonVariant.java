@@ -8,9 +8,11 @@ public enum PigeonVariant {
     CARNEAU(1),
     SADDLEBACK(2),
     VERNANS(3),
+
     DRAGON(4),
     WARPED(5),
     CRIMSON(6),
+
     AETHER(7),
     BUMBLE(8),
     RIBBIT(9);
