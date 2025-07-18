@@ -1,0 +1,12 @@
+{
+  "type": "pretpig:radiation_chamber",
+  "catalyst": {
+    "item": "minecraft:warped_wart_block"
+  },
+  "powder": {
+    "item": "pretpig:rad_blend"
+  },
+  "result": {
+    "id": "pretpig:warped_essence"
+  }
+}

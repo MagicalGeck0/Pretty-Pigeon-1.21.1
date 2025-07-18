@@ -7,7 +7,14 @@
   "item.pretpig.rad_star": "§aRad Star",
   "item.pretpig.golden_worm": "§6Golden Worm",
   "item.pretpig.pointer": "Pointer",
-  "tooltip.pretpig.pointer_tip": "Press ctrl",
+
+  "item.pretpig.crimson_essence": "§4Crimson Essence",
+  "item.pretpig.warped_essence": "§3Warped Essence",
+  "item.pretpig.ender_essence": "§dEnder Essence",
+  "item.pretpig.toad_essence": "§2Toad Essence",
+  "item.pretpig.bumble_essence": "§eBumble Essence",
+
+  "block.pretpig.radiation_chamber": "Radiation Chamber",
 
   "sounds.pretpig.entity_pigeon_ambient": "Pigeon coo-ing"
 }

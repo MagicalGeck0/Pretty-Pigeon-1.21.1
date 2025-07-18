@@ -21,6 +21,12 @@ public class ModItems {
     public static final Item RAD_STAR = registerItem("rad_star", new Item(new Item.Settings()));
     public static final Item GOLDEN_WORM = registerItem("golden_worm", new Item(new Item.Settings().food(ModFoodComponents.GOLDEN_WORM)));
 
+    public static final Item WARPED_ESSENCE = registerItem("warped_essence", new Item(new Item.Settings()));
+    public static final Item CRIMSON_ESSENCE = registerItem("crimson_essence", new Item(new Item.Settings()));
+    public static final Item ENDER_ESSENCE = registerItem("ender_essence", new Item(new Item.Settings()));
+    public static final Item TOAD_ESSENCE = registerItem("toad_essence", new Item(new Item.Settings()));
+    public static final Item BUMBLE_ESSENCE = registerItem("bumble_essence", new Item(new Item.Settings()));
+
     public static final Item SIFTER = registerItem("sifter", new SifterItem(new Item.Settings().maxDamage(32)));
     public static final Item POINTER = registerItem("pointer", new PointerItem(new Item.Settings().maxDamage(16)));
 
@@ -37,6 +43,11 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.add(RAD_BLEND);
             entries.add(RAD_STAR);
+            entries.add(WARPED_ESSENCE);
+            entries.add(CRIMSON_ESSENCE);
+            entries.add(ENDER_ESSENCE);
+            entries.add(TOAD_ESSENCE);
+            entries.add(BUMBLE_ESSENCE);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.add(SIFTER);

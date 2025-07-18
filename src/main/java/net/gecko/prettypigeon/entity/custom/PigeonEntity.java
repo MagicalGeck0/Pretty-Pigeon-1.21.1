@@ -206,56 +206,8 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 }else {
                     return ActionResult.PASS;
                 }
-            }
 
-            /*bumblezone compat*/
-            if (PrettyPigeonCompat.isLoaded("the_bumblezone")) {
-                Item beeBread = PrettyPigeonCompat.loadItem("the_bumblezone","bee_bread");
-                if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.BUMBLE) && ((itemStack.isOf(beeBread) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(beeBread)))) {
-                    itemStack.decrementUnlessCreative(1, player);
-                    itemOff.decrementUnlessCreative(1, player);
-                    this.setVariant(PigeonVariant.BUMBLE);
-                    this.makePuff(0.65f, 0.5f, 0.2f, 50);
-
-                    return ActionResult.success(this.getWorld().isClient);
-                }
-
-            }/*ribbits compat*/
-            if (PrettyPigeonCompat.isLoaded("ribbits")){
-                Item toadstool = PrettyPigeonCompat.loadItem("ribbits","toadstool");
-                if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.RIBBIT) && ((itemStack.isOf(toadstool) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(toadstool)))) {
-                    itemStack.decrementUnlessCreative(1, player);
-                    itemOff.decrementUnlessCreative(1, player);
-                    this.setVariant(PigeonVariant.RIBBIT);
-                    this.makePuff(0.6f,0.7f,0.3f,50);
-
-                    return ActionResult.success(this.getWorld().isClient);
-                }
-
-            } if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.DRAGON) && ((itemStack.isOf(Items.DRAGON_BREATH) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.DRAGON_BREATH)))) {
-                itemStack.decrementUnlessCreative(1, player);
-                itemOff.decrementUnlessCreative(1, player);
-                this.setVariant(PigeonVariant.DRAGON);
-                this.makePuff(0.6f,0.3f,0.5f,50);
-
-                return ActionResult.success(this.getWorld().isClient);
-
-            } else if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.WARPED) && ((itemStack.isOf(Items.WARPED_FUNGUS) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.WARPED_FUNGUS)))) {
-                itemStack.decrementUnlessCreative(1, player);
-                itemOff.decrementUnlessCreative(1, player);
-                this.setVariant(PigeonVariant.WARPED);
-                this.makePuff(0.2f,0.4f,0.4f,50);
-
-                return ActionResult.success(this.getWorld().isClient);
-
-            } else if (this.getOwner() == player && !this.getVariant().equals(PigeonVariant.CRIMSON) && ((itemStack.isOf(Items.CRIMSON_FUNGUS) && itemOff.isOf(ModItems.RAD_BLEND)) || (itemStack.isOf(ModItems.RAD_BLEND) && itemOff.isOf(Items.CRIMSON_FUNGUS)))) {
-                itemStack.decrementUnlessCreative(1, player);
-                itemOff.decrementUnlessCreative(1, player);
-                this.setVariant(PigeonVariant.CRIMSON);
-                this.makePuff(0.4f,0.2f,0.2f,50);
-
-                return ActionResult.success(this.getWorld().isClient);
-
+            /*hats*/
             } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.FEZ) && itemStack.isOf(Items.RED_WOOL)) {
                 itemStack.decrementUnlessCreative(1, player);
                 setHat(PigeonHat.FEZ);
@@ -276,6 +228,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 setHat(PigeonHat.RAM);
                 return ActionResult.success(this.getWorld().isClient);
 
+            /*rad star*/
             } else if (this.getOwner() == player && itemStack.isOf(ModItems.RAD_STAR) && !this.isInvulnerable()) {
                 itemStack.decrementUnlessCreative(1, player);
                 this.setInvulnerable(true);
