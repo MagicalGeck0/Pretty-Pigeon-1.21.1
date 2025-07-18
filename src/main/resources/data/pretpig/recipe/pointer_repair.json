@@ -1,0 +1,12 @@
+{
+  "type": "pretpig:radiation_chamber",
+  "catalyst": {
+    "item": "pretpig:pointer"
+  },
+  "powder": {
+    "item": "pretpig:rad_blend"
+  },
+  "result": {
+    "id": "pretpig:pointer"
+  }
+}
