@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "pretpig:item/pointer"
+    "layer0": "pretpig:item/pointer_2d"
   }
 }

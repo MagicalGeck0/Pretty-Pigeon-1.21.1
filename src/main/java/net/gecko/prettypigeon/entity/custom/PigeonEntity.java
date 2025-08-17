@@ -1,6 +1,5 @@
 package net.gecko.prettypigeon.entity.custom;
 
-import net.gecko.prettypigeon.PrettyPigeonCompat;
 import net.gecko.prettypigeon.entity.ModEntities;
 import net.gecko.prettypigeon.item.ModItems;
 import net.gecko.prettypigeon.sound.ModSounds;
@@ -19,7 +18,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -29,7 +27,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
