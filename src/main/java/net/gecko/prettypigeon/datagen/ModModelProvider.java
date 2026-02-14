@@ -31,6 +31,5 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SIFTER ,Models.GENERATED);
         itemModelGenerator.register(ModItems.RAD_STAR ,Models.GENERATED);
         itemModelGenerator.register(ModItems.GOLDEN_WORM ,Models.GENERATED);
-
     }
 }

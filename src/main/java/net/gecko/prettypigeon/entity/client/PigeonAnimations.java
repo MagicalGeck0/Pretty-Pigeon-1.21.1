@@ -82,34 +82,4 @@ public class PigeonAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.CUBIC))).build();
-
-    public static final Animation ANIM_PIGEON_FEZ = Animation.Builder.create(2f)
-            .addBoneAnimation("fez",
-                    new Transformation(Transformation.Targets.SCALE,
-                            new Keyframe(0f, AnimationHelper.createScalingVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR))).build();
-
-    public static final Animation ANIM_PIGEON_GLASSES = Animation.Builder.create(0.1f)
-            .addBoneAnimation("glasses",
-                    new Transformation(Transformation.Targets.SCALE,
-                            new Keyframe(0f, AnimationHelper.createScalingVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR))).build();
-
-    public static final Animation ANIM_PIGEON_HEADPHONES= Animation.Builder.create(0.1f)
-            .addBoneAnimation("headphones",
-                    new Transformation(Transformation.Targets.SCALE,
-                            new Keyframe(0f, AnimationHelper.createScalingVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR))).build();
-
-    public static final Animation ANIM_PIGEON_CROWN= Animation.Builder.create(0.1f)
-            .addBoneAnimation("crown",
-                    new Transformation(Transformation.Targets.SCALE,
-                            new Keyframe(0f, AnimationHelper.createScalingVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR))).build();
-
-    public static final Animation ANIM_PIGEON_RAM= Animation.Builder.create(0.1f)
-            .addBoneAnimation("ram",
-                    new Transformation(Transformation.Targets.SCALE,
-                            new Keyframe(0f, AnimationHelper.createScalingVector(0f, 0f, 0f),
-                                    Transformation.Interpolations.LINEAR))).build();
 }

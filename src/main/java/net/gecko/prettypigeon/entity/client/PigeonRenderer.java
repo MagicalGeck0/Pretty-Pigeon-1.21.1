@@ -3,6 +3,7 @@ package net.gecko.prettypigeon.entity.client;
 import com.google.common.collect.Maps;
 import net.gecko.prettypigeon.PrettyPigeon;
 import net.gecko.prettypigeon.entity.custom.PigeonEntity;
+import net.gecko.prettypigeon.entity.custom.PigeonHat;
 import net.gecko.prettypigeon.entity.custom.PigeonVariant;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -41,6 +42,8 @@ public class PigeonRenderer extends MobEntityRenderer<PigeonEntity, PigeonModel<
 
     public PigeonRenderer(EntityRendererFactory.Context context) {
         super(context, new PigeonModel<>(context.getPart(PigeonModel.PIGEON)), 0.25f);
+
+        this.addFeature(new PigeonHatFeatureRenderer(this, context.getModelLoader()));
     }
 
     @Override

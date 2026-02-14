@@ -1,12 +1,19 @@
 {
+  "entity.pretpig.pigeon": "Pigeon",
+
   "item.pretpig.pigeon_spawn_egg": "Pigeon Spawn Egg",
   "item.pretpig.rad_blend": "§aRad Blend",
+  "item.pretpig.rad_star": "§aRad Star",
+  "item.pretpig.pigeon_feather": "Pigeon Feather",
+
+
   "item.pretpig.worm": "Worm",
   "item.pretpig.cooked_worm": "Cooked Worm",
-  "item.pretpig.sifter": "Sifter",
-  "item.pretpig.rad_star": "§aRad Star",
   "item.pretpig.golden_worm": "§6Golden Worm",
+
+
   "item.pretpig.pointer": "Pointer",
+  "item.pretpig.sifter": "Sifter",
 
   "item.pretpig.crimson_essence": "§4Crimson Essence",
   "item.pretpig.warped_essence": "§3Warped Essence",

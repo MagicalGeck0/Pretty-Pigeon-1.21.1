@@ -43,12 +43,6 @@ import static java.lang.Math.random;
 public class PigeonEntity extends TameableEntity implements Flutterer {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
-    public final AnimationState fezAnimationState = new AnimationState();
-    public final AnimationState glassesAnimationState = new AnimationState();
-    public final AnimationState headphonesAnimationState = new AnimationState();
-    public final AnimationState crownAnimationState = new AnimationState();
-    public final AnimationState ramAnimationState = new AnimationState();
-
 
     private int idleAnimationTimeout = 0;
 
@@ -105,41 +99,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         } if (this.isInAir()) {
             this.makePuff(1f,1f,1f,1);
         } if (this.getCustomName() != null && this.getCustomName().getString().equals("Chloe")) {
-            this.fezAnimationState.start(0);
-            this.glassesAnimationState.start(0);
-            this.headphonesAnimationState.start(0);
-            this.ramAnimationState.start(0);
-            this.crownAnimationState.stop();
-        } else if (this.getTypeHat() == 0) {
-            this.fezAnimationState.start(0);
-            this.glassesAnimationState.start(0);
-            this.headphonesAnimationState.start(0);
-            this.ramAnimationState.start(0);
-            this.crownAnimationState.start(0);
-        } else if (this.getTypeHat() == 1) {
-            this.fezAnimationState.stop();
-            this.glassesAnimationState.start(0);
-            this.headphonesAnimationState.start(0);
-            this.ramAnimationState.start(0);
-            this.crownAnimationState.start(0);
-        } else if (this.getTypeHat() == 2) {
-            this.fezAnimationState.start(0);
-            this.glassesAnimationState.stop();
-            this.headphonesAnimationState.start(0);
-            this.ramAnimationState.start(0);
-            this.crownAnimationState.start(0);
-        } else if (this.getTypeHat() == 3) {
-            this.fezAnimationState.start(0);
-            this.glassesAnimationState.start(0);
-            this.headphonesAnimationState.stop();
-            this.ramAnimationState.start(0);
-            this.crownAnimationState.start(0);
-        } else if (this.getTypeHat() == 4) {
-            this.fezAnimationState.start(0);
-            this.glassesAnimationState.start(0);
-            this.headphonesAnimationState.start(0);
-            this.ramAnimationState.stop();
-            this.crownAnimationState.start(0);
+            setHat(PigeonHat.CROWN);
         }
     }
 
@@ -300,6 +260,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         this.dataTracker.set(DATA_ID_TYPE_HAT, hat.getId() & 255);
     }
 
+    /*nbt*/
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);

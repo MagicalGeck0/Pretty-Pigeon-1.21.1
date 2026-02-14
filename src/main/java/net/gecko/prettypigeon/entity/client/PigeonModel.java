@@ -123,13 +123,6 @@ public class PigeonModel<T extends PigeonEntity> extends SinglePartEntityModel<T
 
         this.updateAnimation(entity.idleAnimationState, PigeonAnimations.ANIM_PIGEON_IDLE, ageInTicks, 1f);
         this.updateAnimation(entity.sittingAnimationState, PigeonAnimations.ANIM_PIGEON_SIT, ageInTicks, 1f);
-        this.updateAnimation(entity.fezAnimationState, PigeonAnimations.ANIM_PIGEON_FEZ, ageInTicks, 1f);
-        this.updateAnimation(entity.glassesAnimationState, PigeonAnimations.ANIM_PIGEON_GLASSES, ageInTicks, 1f);
-        this.updateAnimation(entity.headphonesAnimationState, PigeonAnimations.ANIM_PIGEON_HEADPHONES, ageInTicks, 1f);
-        this.updateAnimation(entity.ramAnimationState, PigeonAnimations.ANIM_PIGEON_RAM, ageInTicks, 1f);
-        this.updateAnimation(entity.crownAnimationState, PigeonAnimations.ANIM_PIGEON_CROWN, ageInTicks, 1f);
-
-
     }
 
     @Override
