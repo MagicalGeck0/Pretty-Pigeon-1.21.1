@@ -20,6 +20,13 @@ public class ModItems {
     public static final Item RAD_STAR = registerItem("rad_star", new Item(new Item.Settings()));
     public static final Item PIGEON_FEATHER = registerItem("pigeon_feather", new Item(new Item.Settings()));
 
+    public static final Item FEZ = registerItem("fez", new Item(new Item.Settings()));
+    public static final Item FUNNYHAT = registerItem("funnyhat", new Item(new Item.Settings()));
+    public static final Item GLASSES = registerItem("glasses", new Item(new Item.Settings()));
+    public static final Item HEADPHONES = registerItem("headphones", new Item(new Item.Settings()));
+    public static final Item RAM = registerItem("ram", new Item(new Item.Settings()));
+    public static final Item FEATHERCROWN = registerItem("feathercrown", new Item(new Item.Settings()));
+
     public static final Item WORM = registerItem("worm", new Item(new Item.Settings().food(ModFoodComponents.WORM)));
     public static final Item COOKED_WORM = registerItem("cooked_worm", new Item(new Item.Settings().food(ModFoodComponents.COOKED_WORM)));
     public static final Item GOLDEN_WORM = registerItem("golden_worm", new Item(new Item.Settings().food(ModFoodComponents.GOLDEN_WORM)));
@@ -56,6 +63,11 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
             entries.add(SIFTER);
             entries.add(POINTER);
+            entries.add(FUNNYHAT);
+            entries.add(FEZ);
+            entries.add(GLASSES);
+            entries.add(HEADPHONES);
+            entries.add(RAM);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.add(WORM);

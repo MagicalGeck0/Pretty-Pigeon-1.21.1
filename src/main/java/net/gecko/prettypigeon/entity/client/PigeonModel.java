@@ -88,6 +88,11 @@ public class PigeonModel<T extends PigeonEntity> extends SinglePartEntityModel<T
                 .uv(26, 4).cuboid(1.5F, -7.25F, -2.75F, 1.0F, 1.0F, 2.0F, new Dilation(0.0F))
                 .uv(26, 4).mirrored().cuboid(-2.5F, -7.25F, -2.75F, 1.0F, 1.0F, 2.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
+        ModelPartData funnyhat = hat.addChild("funnyhat", ModelPartBuilder.create().uv(14, 18).cuboid(-1.5F,-8.75F,-4.75F,3.0F,1.0F,4.0F, new Dilation(0.0F))
+                .uv(1, 18).cuboid(-1.5F,-9.75F,-3.75F,3.0F,1.0F,3.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F,0.0F,0.0F));
+
+        ModelPartData prop = funnyhat.addChild("prop", ModelPartBuilder.create().uv(10, 19).cuboid(-0.5F,-10.25F,-2.75F,1.0F,1.0F,1.0F, new Dilation(0.0F))
+                .uv(12,15).cuboid(-1.5F,-10.25F,-3.75F,3.0F,0.0F,3.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F,0.0F,0.0F));
 
         ModelPartData rightT_r1 = crown.addChild("rightT_r1", ModelPartBuilder.create().uv(16, 13).cuboid(-0.5F, -1.0F, 0.0F, 1.0F, 1.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.0F, -1.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
 

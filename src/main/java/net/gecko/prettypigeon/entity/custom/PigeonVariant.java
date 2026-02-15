@@ -4,18 +4,22 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public enum PigeonVariant {
+    /*natural*/
     COMMON(0),
     CARNEAU(1),
     SADDLEBACK(2),
     VERNANS(3),
+    LUZON(4),
 
-    DRAGON(4),
-    WARPED(5),
-    CRIMSON(6),
+    /*mutated*/
+    DRAGON(5),
+    WARPED(6),
+    CRIMSON(7),
 
-    AETHER(7),
-    BUMBLE(8),
-    RIBBIT(9);
+    /*modded*/
+    AETHER(8),
+    BUMBLE(9),
+    RIBBIT(10);
 
     private static final PigeonVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(PigeonVariant::getId)).toArray(PigeonVariant[]::new);
 

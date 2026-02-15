@@ -33,6 +33,10 @@ public class PigeonHatFeatureRenderer extends FeatureRenderer<PigeonEntity, Pige
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/hat/ram.png"));
                 map.put(PigeonHat.CROWN,
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/hat/crown.png"));
+                map.put(PigeonHat.FUNNYHAT,
+                        Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/hat/funnyhat.png"));
+                map.put(PigeonHat.FEATHERCROWN,
+                        Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/hat/feathercrown.png"));
             });
 
     private final PigeonModel<PigeonEntity> model;

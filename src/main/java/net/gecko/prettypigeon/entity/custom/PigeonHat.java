@@ -9,7 +9,9 @@ public enum PigeonHat {
     GLASSES(2),
     HEADPHONES(3),
     RAM(4),
-    CROWN(5);
+    CROWN(5),
+    FUNNYHAT(6),
+    FEATHERCROWN(7);
 
     private static final PigeonHat[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(PigeonHat::getId)).toArray(PigeonHat[]::new);
 

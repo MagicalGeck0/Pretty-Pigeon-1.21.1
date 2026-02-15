@@ -3,7 +3,6 @@ package net.gecko.prettypigeon.entity.client;
 import com.google.common.collect.Maps;
 import net.gecko.prettypigeon.PrettyPigeon;
 import net.gecko.prettypigeon.entity.custom.PigeonEntity;
-import net.gecko.prettypigeon.entity.custom.PigeonHat;
 import net.gecko.prettypigeon.entity.custom.PigeonVariant;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -26,6 +25,8 @@ public class PigeonRenderer extends MobEntityRenderer<PigeonEntity, PigeonModel<
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/saddleback.png"));
                 map.put(PigeonVariant.VERNANS,
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/vernans.png"));
+                map.put(PigeonVariant.LUZON,
+                        Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/luzon.png"));
                 map.put(PigeonVariant.DRAGON,
                         Identifier.of(PrettyPigeon.MOD_ID, "textures/entity/pigeon/dragon.png"));
                 map.put(PigeonVariant.WARPED,
