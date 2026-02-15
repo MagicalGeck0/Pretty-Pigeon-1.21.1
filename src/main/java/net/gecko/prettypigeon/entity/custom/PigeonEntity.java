@@ -194,6 +194,21 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 setHat(PigeonHat.FEATHERCROWN);
                 return ActionResult.success(this.getWorld().isClient);
 
+            } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.RADCROWN) && itemStack.isOf(ModItems.RADCROWN)) {
+                itemStack.decrementUnlessCreative(1, player);
+                setHat(PigeonHat.RADCROWN);
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.GLOWCROWN) && itemStack.isOf(ModItems.GLOWCROWN)) {
+                itemStack.decrementUnlessCreative(1, player);
+                setHat(PigeonHat.GLOWCROWN);
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.REDCROWN) && itemStack.isOf(ModItems.REDCROWN)) {
+                itemStack.decrementUnlessCreative(1, player);
+                setHat(PigeonHat.REDCROWN);
+                return ActionResult.success(this.getWorld().isClient);
+
             /*rad star*/
             } else if (this.getOwner() == player && itemStack.isOf(ModItems.RAD_STAR) && !this.isInvulnerable()) {
                 itemStack.decrementUnlessCreative(1, player);

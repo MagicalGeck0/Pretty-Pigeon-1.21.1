@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F",
+    "L"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "F": {
+      "item": "pretpig:pigeon_feather"
+    }
+  },
+  "result": {
+    "id": "pretpig:funnyhat"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "pretpig:radiation_chamber",
+  "catalyst": {
+    "item": "pretpig:feathercrown"
+  },
+  "powder": {
+    "item": "minecraft:glowstone_dust"
+  },
+  "result": {
+    "id": "pretpig:glowcrown"
+  }
+}

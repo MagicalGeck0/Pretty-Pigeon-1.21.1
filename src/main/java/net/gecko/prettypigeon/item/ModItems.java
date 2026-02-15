@@ -26,6 +26,9 @@ public class ModItems {
     public static final Item HEADPHONES = registerItem("headphones", new Item(new Item.Settings()));
     public static final Item RAM = registerItem("ram", new Item(new Item.Settings()));
     public static final Item FEATHERCROWN = registerItem("feathercrown", new Item(new Item.Settings()));
+    public static final Item RADCROWN = registerItem("radcrown", new Item(new Item.Settings()));
+    public static final Item GLOWCROWN = registerItem("glowcrown", new Item(new Item.Settings()));
+    public static final Item REDCROWN = registerItem("redcrown", new Item(new Item.Settings()));
 
     public static final Item WORM = registerItem("worm", new Item(new Item.Settings().food(ModFoodComponents.WORM)));
     public static final Item COOKED_WORM = registerItem("cooked_worm", new Item(new Item.Settings().food(ModFoodComponents.COOKED_WORM)));
@@ -68,6 +71,10 @@ public class ModItems {
             entries.add(GLASSES);
             entries.add(HEADPHONES);
             entries.add(RAM);
+            entries.add(FEATHERCROWN);
+            entries.add(RADCROWN);
+            entries.add(GLOWCROWN);
+            entries.add(REDCROWN);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.add(WORM);

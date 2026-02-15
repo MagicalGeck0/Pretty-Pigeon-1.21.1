@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -32,7 +33,7 @@ public class ChamberScreenHandler extends ScreenHandler {
         this.propertyDelegate = arrayPropertyDelegate;
 
         this.addSlot(new Slot(inventory, 0, 54,19));
-        this.addSlot(new UniqueSlot(inventory, 1, 54,50, ModItems.RAD_BLEND));
+        this.addSlot(new PowderSlot(inventory, 1, 54,50));
         this.addSlot(new OutSlot(inventory, 2, 104,34));
 
         addPlayerInventory(playerInventory);
@@ -106,17 +107,15 @@ public class ChamberScreenHandler extends ScreenHandler {
         }
     }
 
-    public class UniqueSlot extends Slot {
-        private final Item allowedItem;
+    public class PowderSlot extends Slot {
 
-        public UniqueSlot(Inventory inventory, int index, int x, int y, Item allowedItem) {
+        public PowderSlot(Inventory inventory, int index, int x, int y) {
             super(inventory, index, x, y);
-            this.allowedItem = allowedItem;
         }
 
         @Override
         public boolean canInsert(ItemStack stack) {
-            return stack.isOf(allowedItem);
+            return (stack.isOf(ModItems.RAD_BLEND) || stack.isOf(Items.GLOWSTONE_DUST) || stack.isOf(Items.GUNPOWDER) || stack.isOf(Items.REDSTONE));
         }
     }
 
