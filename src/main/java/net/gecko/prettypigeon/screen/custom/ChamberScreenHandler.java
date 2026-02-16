@@ -7,7 +7,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ArrayPropertyDelegate;
@@ -66,7 +65,7 @@ public class ChamberScreenHandler extends ScreenHandler {
 
             int containerSize = 3;
             int inventoryStart = containerSize;
-            int inventoryEnd = this.slots.size()-1;
+            int inventoryEnd = this.slots.size();
 
             if (index < containerSize) {
                 if (!this.insertItem(originalStack, inventoryStart, inventoryEnd, true)) {
@@ -96,7 +95,7 @@ public class ChamberScreenHandler extends ScreenHandler {
     private void addPlayerInventory(PlayerInventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 8,8 + l * 18, 84 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9,8 + l * 18, 84 + i * 18));
             }
         }
     }
@@ -115,7 +114,7 @@ public class ChamberScreenHandler extends ScreenHandler {
 
         @Override
         public boolean canInsert(ItemStack stack) {
-            return (stack.isOf(ModItems.RAD_BLEND) || stack.isOf(Items.GLOWSTONE_DUST) || stack.isOf(Items.GUNPOWDER) || stack.isOf(Items.REDSTONE));
+            return (stack.isOf(ModItems.RAD_BLEND) || stack.isOf(Items.GLOWSTONE_DUST) || stack.isOf(Items.GUNPOWDER) || stack.isOf(Items.REDSTONE) || stack.isOf(Items.AIR));
         }
     }
 

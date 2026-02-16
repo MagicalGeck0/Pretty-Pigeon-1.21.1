@@ -3,6 +3,7 @@ package net.gecko.prettypigeon.block.entity.custom;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.gecko.prettypigeon.block.entity.ImplementedInventory;
 import net.gecko.prettypigeon.block.entity.ModBlockEntities;
+import net.gecko.prettypigeon.item.ModItems;
 import net.gecko.prettypigeon.recipe.ChamberRecipe;
 import net.gecko.prettypigeon.recipe.ChamberRecipeInput;
 import net.gecko.prettypigeon.recipe.ModRecipes;
@@ -12,7 +13,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
@@ -25,6 +28,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,6 +109,17 @@ public class ChamberBlockEntity extends BlockEntity implements ExtendedScreenHan
         progress = nbt.getInt("chamber.progress");
         maxProgress = nbt.getInt("chamber.max_progress");
         super.readNbt(nbt, registryLookup);
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
+        if (slot == 1) {
+            return (stack.isOf(ModItems.RAD_BLEND)
+                    || stack.isOf(Items.GLOWSTONE_DUST)
+                    || stack.isOf(Items.GUNPOWDER)
+                    || stack.isOf(Items.REDSTONE));
+        } else return slot != 2;
+
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {

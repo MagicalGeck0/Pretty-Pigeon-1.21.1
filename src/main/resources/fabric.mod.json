@@ -23,6 +23,9 @@
 		],
 		"client": [
 			"net.gecko.prettypigeon.PrettyPigeonClient"
+		],
+		"rei_client": [
+			"net.gecko.prettypigeon.compat.PrettyPigeonREIClient"
 		]
 	},
 	"mixins": [
