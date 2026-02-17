@@ -209,6 +209,11 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 setHat(PigeonHat.REDCROWN);
                 return ActionResult.success(this.getWorld().isClient);
 
+            } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.ECHOCROWN) && itemStack.isOf(ModItems.ECHOCROWN)) {
+                itemStack.decrementUnlessCreative(1, player);
+                setHat(PigeonHat.ECHOCROWN);
+                return ActionResult.success(this.getWorld().isClient);
+
             /*rad star*/
             } else if (this.getOwner() == player && itemStack.isOf(ModItems.RAD_STAR) && !this.isInvulnerable()) {
                 itemStack.decrementUnlessCreative(1, player);
@@ -302,7 +307,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         setHat(PigeonHat.DEFAULT);
-        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v.getId() <= 4).toArray(PigeonVariant[]::new), this.random);
+        PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v.getId() <= 6).toArray(PigeonVariant[]::new), this.random);
         setVariant(variant);
 
         return super.initialize(world, difficulty, spawnReason, entityData);

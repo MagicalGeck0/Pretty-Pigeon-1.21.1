@@ -17,6 +17,7 @@ public class ModItems {
     public static final Item PIGEON_SPAWN_EGG = registerItem("pigeon_spawn_egg", new SpawnEggItem(ModEntities.PIGEON, 0x5dce87, 0xbe6682, new Item.Settings()));
 
     public static final Item RAD_BLEND = registerItem("rad_blend", new Item(new Item.Settings()));
+    public static final Item ECHO_BLEND = registerItem("echo_blend", new Item(new Item.Settings()));
     public static final Item RAD_STAR = registerItem("rad_star", new Item(new Item.Settings()));
     public static final Item PIGEON_FEATHER = registerItem("pigeon_feather", new Item(new Item.Settings()));
 
@@ -29,6 +30,7 @@ public class ModItems {
     public static final Item RADCROWN = registerItem("radcrown", new Item(new Item.Settings()));
     public static final Item GLOWCROWN = registerItem("glowcrown", new Item(new Item.Settings()));
     public static final Item REDCROWN = registerItem("redcrown", new Item(new Item.Settings()));
+    public static final Item ECHOCROWN = registerItem("echocrown", new Item(new Item.Settings()));
 
     public static final Item WORM = registerItem("worm", new Item(new Item.Settings().food(ModFoodComponents.WORM)));
     public static final Item COOKED_WORM = registerItem("cooked_worm", new Item(new Item.Settings().food(ModFoodComponents.COOKED_WORM)));
@@ -55,6 +57,7 @@ public class ModItems {
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.add(RAD_BLEND);
+            entries.add(ECHO_BLEND);
             entries.add(RAD_STAR);
             entries.add(PIGEON_FEATHER);
             entries.add(WARPED_ESSENCE);
@@ -75,6 +78,7 @@ public class ModItems {
             entries.add(RADCROWN);
             entries.add(GLOWCROWN);
             entries.add(REDCROWN);
+            entries.add(ECHOCROWN);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.add(WORM);

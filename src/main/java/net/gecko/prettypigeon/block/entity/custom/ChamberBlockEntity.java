@@ -13,7 +13,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -115,6 +114,7 @@ public class ChamberBlockEntity extends BlockEntity implements ExtendedScreenHan
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
         if (slot == 1) {
             return (stack.isOf(ModItems.RAD_BLEND)
+                    || stack.isOf(ModItems.ECHO_BLEND)
                     || stack.isOf(Items.GLOWSTONE_DUST)
                     || stack.isOf(Items.GUNPOWDER)
                     || stack.isOf(Items.REDSTONE));

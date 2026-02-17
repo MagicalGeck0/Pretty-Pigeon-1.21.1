@@ -3,6 +3,7 @@
 
   "item.pretpig.pigeon_spawn_egg": "Pigeon Spawn Egg",
   "item.pretpig.rad_blend": "§aRad Blend",
+  "item.pretpig.echo_blend": "§1Echo Blend",
   "item.pretpig.rad_star": "§aRad Star",
   "item.pretpig.pigeon_feather": "Pigeon Feather",
 
@@ -12,9 +13,10 @@
   "item.pretpig.headphones": "Headphones",
   "item.pretpig.ram": "Ram Horns",
   "item.pretpig.feathercrown": "Feather Crown",
-  "item.pretpig.radcrown": "Rad Crown",
-  "item.pretpig.glowcrown": "Glow Crown",
-  "item.pretpig.redcrown": "RedCrown",
+  "item.pretpig.radcrown": "§aRad Crown",
+  "item.pretpig.glowcrown": "§6Glow Crown",
+  "item.pretpig.redcrown": "§4RedCrown",
+  "item.pretpig.echocrown": "§1Echo Crown",
 
   "item.pretpig.worm": "Worm",
   "item.pretpig.cooked_worm": "Cooked Worm",

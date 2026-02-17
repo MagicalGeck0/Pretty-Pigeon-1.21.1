@@ -1,0 +1,12 @@
+{
+  "type": "pretpig:radiation_chamber",
+  "catalyst": {
+    "item": "pretpig:feathercrown"
+  },
+  "powder": {
+    "item": "pretpig:echo_blend"
+  },
+  "result": {
+    "id": "pretpig:echocrown"
+  }
+}

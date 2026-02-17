@@ -114,7 +114,7 @@ public class ChamberScreenHandler extends ScreenHandler {
 
         @Override
         public boolean canInsert(ItemStack stack) {
-            return (stack.isOf(ModItems.RAD_BLEND) || stack.isOf(Items.GLOWSTONE_DUST) || stack.isOf(Items.GUNPOWDER) || stack.isOf(Items.REDSTONE) || stack.isOf(Items.AIR));
+            return (stack.isOf(ModItems.RAD_BLEND) || stack.isOf(ModItems.ECHO_BLEND) || stack.isOf(Items.GLOWSTONE_DUST) || stack.isOf(Items.GUNPOWDER) || stack.isOf(Items.REDSTONE) || stack.isOf(Items.AIR));
         }
     }
 
