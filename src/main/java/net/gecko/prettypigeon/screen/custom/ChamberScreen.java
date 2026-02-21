@@ -11,9 +11,9 @@ import net.minecraft.util.Identifier;
 
 public class ChamberScreen extends HandledScreen<ChamberScreenHandler> {
     private static final Identifier GUI_TEXTURE =
-            Identifier.of(PrettyPigeon.MOD_ID, "textures/gui/chamber/chamber_gui.png");
+            Identifier.of(PrettyPigeon.MOD_ID, "textures/gui/chamber_gui.png");
     private static final Identifier ARROW_TEXTURE =
-            Identifier.of(PrettyPigeon.MOD_ID, "textures/gui/chamber/progress.png");
+            Identifier.of(PrettyPigeon.MOD_ID, "textures/gui/progress.png");
 
 
     public ChamberScreen(ChamberScreenHandler handler, PlayerInventory inventory, Text title) {

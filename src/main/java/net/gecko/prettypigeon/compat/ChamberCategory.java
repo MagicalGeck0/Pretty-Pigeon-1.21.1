@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ChamberCategory implements DisplayCategory<BasicDisplay> {
-    public static final Identifier TEXTURE = Identifier.of(PrettyPigeon.MOD_ID, "textures/gui/chamber/chamber_gui_rei.png");
+    public static final Identifier TEXTURE = Identifier.of(PrettyPigeon.MOD_ID, "textures/gui/chamber_gui_rei.png");
 
     public static final CategoryIdentifier<ChamberDisplay> CHAMBER = CategoryIdentifier.of(PrettyPigeon.MOD_ID, "chamber");
 

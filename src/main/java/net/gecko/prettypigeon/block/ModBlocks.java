@@ -2,6 +2,7 @@ package net.gecko.prettypigeon.block;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.gecko.prettypigeon.PrettyPigeon;
+import net.gecko.prettypigeon.block.custom.AltarBlock;
 import net.gecko.prettypigeon.block.custom.ChamberBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -10,12 +11,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
 
     public static final Block RADIATION_CHAMBER = registerBlock("radiation_chamber",
-            new ChamberBlock(AbstractBlock.Settings.create()));
+            new ChamberBlock(AbstractBlock.Settings.create().strength(2f).sounds(BlockSoundGroup.ANVIL)));
+
+    public static final Block ALTAR = registerBlock("altar",
+            new AltarBlock(AbstractBlock.Settings.create().strength(2f).sounds(BlockSoundGroup.STONE)));
 
 
     private static Block registerBlock(String name, Block block) {
@@ -33,6 +38,7 @@ public class ModBlocks {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(entries -> {
             entries.add(RADIATION_CHAMBER);
+            entries.add(ALTAR);
         });
     }
 }

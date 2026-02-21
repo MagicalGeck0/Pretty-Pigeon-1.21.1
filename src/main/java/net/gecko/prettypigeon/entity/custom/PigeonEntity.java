@@ -18,6 +18,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
@@ -26,6 +27,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -312,6 +314,36 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
         return super.initialize(world, difficulty, spawnReason, entityData);
 
+    }
+
+    @Override
+    protected void onKilledBy(@Nullable LivingEntity adversary) {
+        if (this.isTamed()) {
+            ItemStack stack = new ItemStack(ModItems.PIGEON_FEATHER, 1);
+            NbtCompound nbt = new NbtCompound();
+            nbt.putInt("variant", this.getTypeVariant());
+            nbt.putInt("hat", this.getTypeHat());
+            nbt.putUuid("owner", this.getOwnerUuid());
+            if (this.getCustomName() != null){
+                nbt.putString("name", this.getCustomName().getString());
+                stack.set(DataComponentTypes.CUSTOM_NAME, this.getCustomName());
+            } else {
+                stack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(this.getOwner().getName().getString()+"'s pigeon"));
+            }
+            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(nbt));
+
+
+            ItemEntity item = new ItemEntity(
+                    this.getWorld(),
+                    this.getX(),
+                    this.getY(),
+                    this.getZ(),
+                    stack
+            );
+            this.getWorld().spawnEntity(item);
+            item.setNeverDespawn();
+            item.setInvulnerable(true);
+        }
     }
 
     @Nullable
