@@ -21,7 +21,13 @@ public enum PigeonVariant {
     /*modded*/
     AETHER(10),
     BUMBLE(11),
-    RIBBIT(12);
+    RIBBIT(12),
+
+    /*robot*/
+    IRON(13),
+    COPPER(14),
+    GOLD(15),
+    NETHERITE(16);
 
     private static final PigeonVariant[] BY_ID = Arrays.stream(values()).sorted(Comparator.comparingInt(PigeonVariant::getId)).toArray(PigeonVariant[]::new);
 

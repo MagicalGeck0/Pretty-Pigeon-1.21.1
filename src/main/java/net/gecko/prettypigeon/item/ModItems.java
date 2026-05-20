@@ -3,6 +3,7 @@ package net.gecko.prettypigeon.item;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.gecko.prettypigeon.PrettyPigeon;
 import net.gecko.prettypigeon.entity.ModEntities;
+import net.gecko.prettypigeon.item.custom.AutomatonItem;
 import net.gecko.prettypigeon.item.custom.PointerItem;
 import net.gecko.prettypigeon.item.custom.SifterItem;
 import net.minecraft.item.Item;
@@ -42,6 +43,14 @@ public class ModItems {
     public static final Item TOAD_ESSENCE = registerItem("toad_essence", new Item(new Item.Settings()));
     public static final Item BUMBLE_ESSENCE = registerItem("bumble_essence", new Item(new Item.Settings()));
 
+    public static final Item RAD_CORE = registerItem("rad_core", new Item(new Item.Settings()));
+    public static final Item ECHO_CORE = registerItem("echo_core", new Item(new Item.Settings()));
+
+    public static final Item IRON_AUTOMATON = registerItem("iron_automaton", new AutomatonItem(new Item.Settings()));
+    public static final Item COPPER_AUTOMATON = registerItem("copper_automaton", new AutomatonItem(new Item.Settings()));
+    public static final Item GOLD_AUTOMATON = registerItem("gold_automaton", new AutomatonItem(new Item.Settings()));
+    public static final Item NETHERITE_AUTOMATON = registerItem("netherite_automaton", new AutomatonItem(new Item.Settings()));
+
     public static final Item SIFTER = registerItem("sifter", new SifterItem(new Item.Settings().maxDamage(32)));
     public static final Item POINTER = registerItem("pointer", new PointerItem(new Item.Settings().maxDamage(16)));
 
@@ -79,6 +88,12 @@ public class ModItems {
             entries.add(GLOWCROWN);
             entries.add(REDCROWN);
             entries.add(ECHOCROWN);
+            entries.add(RAD_CORE);
+            entries.add(ECHO_CORE);
+            entries.add(IRON_AUTOMATON);
+            entries.add(COPPER_AUTOMATON);
+            entries.add(GOLD_AUTOMATON);
+            entries.add(NETHERITE_AUTOMATON);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             entries.add(WORM);

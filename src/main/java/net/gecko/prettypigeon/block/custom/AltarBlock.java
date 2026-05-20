@@ -11,6 +11,7 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
@@ -41,7 +42,7 @@ public class AltarBlock extends Block {
         BlockPos top = pos.add(0, 1, 0);
         List<ItemEntity> items = world.getEntitiesByClass(ItemEntity.class,new Box(top),itemEntity -> itemEntity.getStack().isOf(ModItems.ECHO_BLEND));
 
-        if (stack.isOf(ModItems.PIGEON_FEATHER)
+        if ((stack.isOf(ModItems.PIGEON_FEATHER) || stack.isOf(ModItems.RAD_CORE) || stack.isOf(ModItems.ECHO_CORE) || stack.isOf(Items.AMETHYST_SHARD))
                 && nbt != null
                 && !items.isEmpty()
         ) {

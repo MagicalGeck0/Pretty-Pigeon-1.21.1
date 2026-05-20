@@ -18,8 +18,8 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.recipe.Ingredient;
@@ -45,14 +45,18 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
 
-    private int idleAnimationTimeout = 0;
+    private int idleAnimationTimeout = 1;
 
     private static final TrackedData<Integer> DATA_ID_TYPE_VARIANT = DataTracker.registerData(PigeonEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> DATA_ID_TYPE_HAT = DataTracker.registerData(PigeonEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> DATA_ID_TYPE_CORE = DataTracker.registerData(PigeonEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private boolean frozen;
 
     public PigeonEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
     }
+
+
 
     @Override
     protected void initGoals() {
@@ -90,8 +94,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     @Override
     public void tick() {
         super.tick();
-
-        if (this.getWorld().isClient()) {
+        if (this.getWorld().isClient() && (getVariant().getId()<13 || getCore().getId()!=0)) {
             this.SetupAnimationStates();
         } if (this.isInSittingPose()) {
             this.sittingAnimationState.start(0);
@@ -99,14 +102,18 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
             this.sittingAnimationState.stop();
         } if (this.isInAir()) {
             this.makePuff(1f,1f,1f,1);
-        } if (this.getCustomName() != null && this.getCustomName().getString().equals("Chloe")) {
-            setHat(PigeonHat.CROWN);
         }
     }
 
     @Override
+    public void setCustomName(@Nullable Text name) {
+        super.setCustomName(name);
+        if (name.getString().equals("Chloe")){setHat(PigeonHat.CROWN);}
+    }
+
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isOf(ModItems.WORM);
+        return stack.isOf(ModItems.WORM) && this.getVariant().getId()<13;
     }
 
     @Override
@@ -126,7 +133,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         ItemStack itemOff = player.getOffHandStack();
-        if (!this.isTamed() && itemStack.isOf(ModItems.WORM)) {
+        if (!this.isTamed() && isBreedingItem(itemStack)){
             itemStack.decrementUnlessCreative(1, player);
             if (!this.isSilent()) {
                 this.getWorld().playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PARROT_EAT, this.getSoundCategory(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
@@ -146,7 +153,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         if (player.isSneaking()) {
 
             /*Pointer*/
-            if (itemStack.isOf(ModItems.POINTER)){
+            if (itemStack.isOf(ModItems.POINTER) && this.getVariant().getId()<13){
                 if (itemStack.get(DataComponentTypes.CUSTOM_DATA) == null) {
                     NbtCompound data = new NbtCompound();
                     data.putInt("variant", this.getTypeVariant());
@@ -164,6 +171,58 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 }else {
                     return ActionResult.PASS;
                 }
+
+            /*cores*/
+            } else if (this.getOwner() == player && getVariant().getId()>12 && itemStack.isOf(ModItems.RAD_CORE) && getCore().getId()!=1) {
+                itemStack.decrementUnlessCreative(1,player);
+                ItemStack stack = new ItemStack(Items.AIR);
+                if (getCore().getId()==2) {stack = new ItemStack(ModItems.ECHO_CORE);}
+                else if (getCore().getId()==3) {stack = new ItemStack(Items.AMETHYST_SHARD);}
+                ItemEntity item = new ItemEntity(
+                        this.getWorld(),
+                        this.getX(),
+                        this.getY(),
+                        this.getZ(),
+                        stack
+                    );
+                this.getWorld().spawnEntity(item);
+                setCore(PigeonCore.RAD);
+                setAiDisabled(false);
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (this.getOwner() == player && getVariant().getId()>12 && itemStack.isOf(ModItems.ECHO_CORE)) {
+                itemStack.decrementUnlessCreative(1,player);
+                ItemStack stack = new ItemStack(Items.AIR);
+                if (getCore().getId()==1) {stack = new ItemStack(ModItems.RAD_CORE);}
+                else if (getCore().getId()==3) {stack = new ItemStack(Items.AMETHYST_SHARD);}
+                ItemEntity item = new ItemEntity(
+                        this.getWorld(),
+                        this.getX(),
+                        this.getY(),
+                        this.getZ(),
+                        stack
+                );
+                this.getWorld().spawnEntity(item);
+                setCore(PigeonCore.ECHO);
+                setAiDisabled(false);
+                return ActionResult.success(this.getWorld().isClient);
+
+            } else if (this.getOwner() == player && getVariant().getId()>12 && itemStack.isOf(Items.AMETHYST_SHARD)) {
+                itemStack.decrementUnlessCreative(1,player);
+                ItemStack stack = new ItemStack(Items.AIR);
+                if (getCore().getId()==2) {stack = new ItemStack(ModItems.ECHO_CORE);}
+                else if (getCore().getId()==1) {stack = new ItemStack(ModItems.RAD_CORE);}
+                ItemEntity item = new ItemEntity(
+                        this.getWorld(),
+                        this.getX(),
+                        this.getY(),
+                        this.getZ(),
+                        stack
+                );
+                this.getWorld().spawnEntity(item);
+                setCore(PigeonCore.AMETHYST);
+                setAiDisabled(false);
+                return ActionResult.success(this.getWorld().isClient);
 
             /*hats*/
             } else if (this.getOwner() == player && !this.getHat().equals(PigeonHat.FEZ) && itemStack.isOf(ModItems.FEZ)) {
@@ -225,7 +284,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
                 this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.NEUTRAL);
                 return ActionResult.success(this.getWorld().isClient);
 
-            } else if (!this.isInAir() && this.isTamed() && this.isOwner(player)) {
+            } else if (!this.isInAir() && this.isTamed() && this.isOwner(player) && (getVariant().getId()<13 || getCore().getId()>0)) {
                 this.setSitting(!this.isSitting());
 
 
@@ -237,6 +296,9 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
 
     }
 
+    public void freeze(boolean frozen) {
+        this.frozen = frozen;
+    }
 
     public boolean isInAir() {
         return !this.isOnGround();
@@ -251,6 +313,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         super.initDataTracker(builder);
         builder.add(DATA_ID_TYPE_VARIANT, 0);
         builder.add(DATA_ID_TYPE_HAT, 0);
+        builder.add(DATA_ID_TYPE_CORE, 0);
     }
     public void makePuff(float r,float g, float b,int quantity) {
         DustParticleEffect colorSmoke = new DustParticleEffect(new Vector3f(r, g, b), 1.0f);
@@ -274,7 +337,7 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
     }
 
-    private  void setVariant(PigeonVariant variant) {
+    public void setVariant(PigeonVariant variant) {
         this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
     }
 
@@ -291,12 +354,26 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         this.dataTracker.set(DATA_ID_TYPE_HAT, hat.getId() & 255);
     }
 
+    /*CORE*/
+    public PigeonCore getCore() {
+        return PigeonCore.byid(this.getTypeCore() & 255);
+    }
+
+    private int getTypeCore() {
+        return this.dataTracker.get(DATA_ID_TYPE_CORE);
+    }
+
+    private void setCore(PigeonCore core) {
+        this.dataTracker.set(DATA_ID_TYPE_CORE, core.getId() & 255);
+    }
+
     /*nbt*/
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putInt("variant", this.getTypeVariant());
         nbt.putInt("hat", this.getTypeHat());
+        nbt.putInt("core", this.getTypeCore());
     }
 
     @Override
@@ -304,11 +381,13 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
         super.readCustomDataFromNbt(nbt);
         this.dataTracker.set(DATA_ID_TYPE_VARIANT, nbt.getInt("variant"));
         this.dataTracker.set(DATA_ID_TYPE_HAT, nbt.getInt("hat"));
+        this.dataTracker.set(DATA_ID_TYPE_CORE, nbt.getInt("core"));
     }
 
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         setHat(PigeonHat.DEFAULT);
+        setCore(PigeonCore.NONE);
         PigeonVariant variant = Util.getRandom(Arrays.stream(PigeonVariant.values()).filter(v -> v.getId() <= 6).toArray(PigeonVariant[]::new), this.random);
         setVariant(variant);
 
@@ -319,10 +398,17 @@ public class PigeonEntity extends TameableEntity implements Flutterer {
     @Override
     protected void onKilledBy(@Nullable LivingEntity adversary) {
         if (this.isTamed()) {
-            ItemStack stack = new ItemStack(ModItems.PIGEON_FEATHER, 1);
+            ItemStack stack = new ItemStack(Items.AIR, 1);
+            if (this.getVariant().getId()<13) {stack = new ItemStack(ModItems.PIGEON_FEATHER);}
+            else {
+                if (this.getCore().getId()==1) {stack = new ItemStack(ModItems.RAD_CORE);}
+                else if (this.getCore().getId()==2) {stack = new ItemStack(ModItems.ECHO_CORE);}
+                else if (this.getCore().getId()==3) {stack = new ItemStack(Items.AMETHYST_SHARD);}
+            }
             NbtCompound nbt = new NbtCompound();
             nbt.putInt("variant", this.getTypeVariant());
             nbt.putInt("hat", this.getTypeHat());
+            nbt.putInt("core", this.getTypeCore());
             nbt.putUuid("owner", this.getOwnerUuid());
             if (this.getCustomName() != null){
                 nbt.putString("name", this.getCustomName().getString());

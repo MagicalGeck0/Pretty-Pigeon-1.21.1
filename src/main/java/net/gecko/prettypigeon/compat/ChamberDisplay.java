@@ -9,7 +9,6 @@ import net.gecko.prettypigeon.recipe.ChamberRecipe;
 import net.minecraft.recipe.RecipeEntry;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class ChamberDisplay extends BasicDisplay {
     public ChamberDisplay(RecipeEntry<ChamberRecipe> recipe) {

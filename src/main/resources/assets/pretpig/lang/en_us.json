@@ -18,6 +18,14 @@
   "item.pretpig.redcrown": "§4RedCrown",
   "item.pretpig.echocrown": "§1Echo Crown",
 
+  "item.pretpig.echo_core": "§1Echo Core",
+  "item.pretpig.rad_core": "§aRad Core",
+
+  "item.pretpig.iron_automaton": "Iron Automaton",
+  "item.pretpig.copper_automaton": "Copper Automaton",
+  "item.pretpig.gold_automaton": "Gold Automaton",
+  "item.pretpig.netherite_automaton": "Netherite Automaton",
+
   "item.pretpig.worm": "Worm",
   "item.pretpig.cooked_worm": "Cooked Worm",
   "item.pretpig.golden_worm": "§6Golden Worm",

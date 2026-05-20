@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " r ",
+    "rar",
+    " r "
+  ],
+  "key": {
+    "r": {
+      "item": "pretpig:rad_blend"
+    },
+    "a": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "id": "pretpig:rad_core"
+  }
+}

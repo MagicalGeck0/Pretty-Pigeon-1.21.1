@@ -1,8 +1,8 @@
 package net.gecko.prettypigeon.entity.client;
 
 import net.gecko.prettypigeon.PrettyPigeon;
+import net.gecko.prettypigeon.entity.custom.PigeonCore;
 import net.gecko.prettypigeon.entity.custom.PigeonEntity;
-import net.gecko.prettypigeon.entity.custom.PigeonHat;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -13,11 +13,11 @@ import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class PigeonHatFeatureRenderer extends FeatureRenderer<PigeonEntity, PigeonModel<PigeonEntity>> {
+public class PigeonCoreFeatureRenderer extends FeatureRenderer<PigeonEntity, PigeonModel<PigeonEntity>> {
 
     private final PigeonModel<PigeonEntity> model;
 
-    public PigeonHatFeatureRenderer(FeatureRendererContext<PigeonEntity, PigeonModel<PigeonEntity>> context, EntityModelLoader loader) {
+    public PigeonCoreFeatureRenderer(FeatureRendererContext<PigeonEntity, PigeonModel<PigeonEntity>> context, EntityModelLoader loader) {
 
         super(context);
         this.model = new PigeonModel<>(loader.getModelPart(PigeonModel.PIGEON));
@@ -25,9 +25,9 @@ public class PigeonHatFeatureRenderer extends FeatureRenderer<PigeonEntity, Pige
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, PigeonEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        if (entity.getHat() == PigeonHat.DEFAULT) return;
+        if (entity.getCore() == PigeonCore.NONE) return;
 
-        Identifier texture = Identifier.of(PrettyPigeon.MOD_ID, String.format("textures/entity/pigeon/hat/%s.png",entity.getHat().toString().toLowerCase()));
+        Identifier texture = Identifier.of(PrettyPigeon.MOD_ID, String.format("textures/entity/pigeon/core/%s.png",entity.getCore().toString().toLowerCase()));
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutout(texture));
 

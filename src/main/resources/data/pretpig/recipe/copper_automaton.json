@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ii ",
+    "ifi",
+    " ii"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:copper_ingot"
+    },
+    "f": {
+      "item": "pretpig:pigeon_feather"
+    }
+  },
+  "result": {
+    "id": "pretpig:copper_automaton"
+  }
+}
